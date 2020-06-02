@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="C:\Users\rober\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\rober\.Rider2019.3\config\extensions" t="IncludeRecursive" />
     <e p="C:\Users\rober\.Rider2019.3\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\rober\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_WebApplication.-2144230293.00" t="ExcludeRecursive" />
     <e p="C:\Users\rober\RiderProjects\WebApplication" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="WebApplication" t="IncludeRecursive">
+        <e p="AppSettings.cs" t="Include" />
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Constants.cs" t="Include" />
         <e p="Controllers" t="Include">
+          <e p="BojeController.cs" t="Include" />
+          <e p="CertifikatiController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
         </e>
-        <e p="Model" t="Include">
+        <e p="Models" t="Include">
           <e p="Boje.cs" t="Include" />
           <e p="Certifikati.cs" t="Include" />
           <e p="DodatnaOprema.cs" t="Include" />
+          <e p="ErrorViewModel.cs" t="Include" />
           <e p="Kategorije.cs" t="Include" />
           <e p="Klijenti.cs" t="Include" />
           <e p="Mjenjaci.cs" t="Include" />
@@ -39,9 +46,6 @@
           <e p="Zaposlenici.cs" t="Include" />
           <e p="ZaposleniciCertifikati.cs" t="Include" />
         </e>
-        <e p="Models" t="Include">
-          <e p="ErrorViewModel.cs" t="Include" />
-        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -55,9 +59,27 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
+        <e p="ViewComponents" t="Include">
+          <e p="NavigationViewComponent.cs" t="Include" />
+        </e>
+        <e p="ViewModels" t="Include">
+          <e p="BojeViewModel.cs" t="Include" />
+          <e p="CertifikatiViewModel.cs" t="Include" />
+          <e p="PagingInfo.cs" t="Include" />
+        </e>
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Boje" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Certifikati" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Home" t="Include">
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
@@ -65,6 +87,11 @@
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+            <e p="Components" t="Include">
+              <e p="Navigation" t="Include">
+                <e p="Default.cshtml" t="Include" />
+              </e>
+            </e>
             <e p="Error.cshtml" t="Include" />
           </e>
         </e>
@@ -75,6 +102,7 @@
           </e>
           <e p="favicon.ico" t="Include" />
           <e p="js" t="Include">
+            <e p="gotopage.js" t="Include" />
             <e p="site.js" t="Include" />
           </e>
           <e p="lib" t="Include">
