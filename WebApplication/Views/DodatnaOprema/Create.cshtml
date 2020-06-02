@@ -1,0 +1,32 @@
+﻿@model DodatnaOprema
+
+@{
+    ViewBag.Title = "Nova oprema";
+}
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdDodatneOpreme"></label>
+        <div><span asp-validation-for="IdDodatneOpreme" class="text-danger"></span></div>
+        <input asp-for="IdDodatneOpreme" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Siber"></label>
+        <div><span asp-validation-for="Siber" class="text-danger"></span></div>
+        <input type="checkbox" asp-for="Siber" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Klima"></label>
+        <div><span asp-validation-for="Klima" class="text-danger"></span></div>
+        <input type="checkbox" asp-for="Klima" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="KozniSicevi"></label>
+        <div><span asp-validation-for="KozniSicevi" class="text-danger"></span></div>
+        <input type="checkbox" asp-for="KozniSicevi" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

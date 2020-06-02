@@ -22,14 +22,13 @@
             <td class="text-center">@boja.IdBoje</td>
             <td class="text-left">@boja.Naziv</td>
             <td class="btn-group">
-                <a asp-action="Edit" 
+                <a asp-action="Edit"
                    asp-route-id="@boja.IdBoje"
-                   asp-route-page="@Model.PagingInfo.CurrentPage" 
-                   asp-route-sort="@Model.PagingInfo.Sort" 
+                   asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-sort="@Model.PagingInfo.Sort"
                    asp-route-ascending="@Model.PagingInfo.Ascending"
-                   class="btn btn-sm btn-secondary" title="Azuriraj"
-                >
-                    <i class="fas fa-edit"></i>    
+                   class="btn btn-sm btn-secondary" title="Azuriraj">
+                    Edit
                 </a>
                 
                 <form asp-action="Delete" method="POST" 
@@ -38,8 +37,8 @@
                       asp-route-ascending="@Model.PagingInfo.Ascending">
                     <input type="hidden" name="IdBoje" value="@boja.IdBoje" />
                     <button type="submit" class="btn btn-sm btn-danger delete" title="Obrisi">
-                        <i class="fas fa-trash-alt"></i>    
-                        </button>
+                        Delete
+                    </button>
                 </form>
             </td>
         </tr>

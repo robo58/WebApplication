@@ -1,0 +1,20 @@
+﻿@using WebApplication.Controllers
+@model DodatnaOprema
+
+<tr>
+    <td class="text-left">@Model.IdDodatneOpreme</td>
+    <td class="text-left"><input type="checkbox" disabled @(Model.Siber ? "checked" : "") /></td>
+    <td class="text-left"><input type="checkbox" disabled @(Model.Klima ? "checked" : "") /></td>
+    <td class="text-left"><input type="checkbox" disabled @(Model.KozniSicevi ? "checked" : "") /></td>
+    <td class="btn-group">
+        <a data-idopreme="@Model.IdDodatneOpreme" class="btn btn-sm btn-secondary editajax" title="Azuriraj">
+            Edit
+        </a>
+        <form asp-action="Delete" method="POST">
+            <input type="hidden" name="id" value="@Model.IdDodatneOpreme"/>
+            <button data-idopreme="@Model.IdDodatneOpreme" type="submit" class="btn btn-sm btn-danger deleteajax" title="Obrisi">
+                Delete
+            </button>
+        </form>
+    </td>
+</tr>

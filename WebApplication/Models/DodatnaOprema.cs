@@ -11,9 +11,9 @@ namespace WebApplication.Models
         }
 
         public int IdDodatneOpreme { get; set; }
-        public bool? Siber { get; set; }
-        public bool? Klima { get; set; }
-        public bool? KozniSicevi { get; set; }
+        public bool Siber { get; set; }
+        public bool Klima { get; set; }
+        public bool KozniSicevi { get; set; }
 
         public virtual ICollection<Specifikacije> Specifikacije { get; set; }
     }

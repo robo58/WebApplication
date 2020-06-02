@@ -27,16 +27,16 @@
                    asp-route-page="@Model.PagingInfo.CurrentPage" 
                    asp-route-sort="@Model.PagingInfo.Sort" 
                    asp-route-ascending="@Model.PagingInfo.Ascending"
-                   class="btn btn-sm btn-secondary" title="Azuriraj"
+                   class="btn btn-secondary" title="Azuriraj"
                 >
-                    <i class="fas fa-edit"></i>    
+                    Edit    
                 </a>
                 <form asp-action="Delete" method="POST" asp-route-page="@Model.PagingInfo.CurrentPage" 
                       asp-route-sort="@Model.PagingInfo.Sort" asp-route-ascending="@Model.PagingInfo.Ascending">
                     <input type="hidden" name="IdCertifikata" value="@certifikati.IdCertifikata" />
-                    <button type="submit" class="btn btn-sm btn-danger delete" title="Obrisi">
-                        <i class="fas fa-trash-alt"></i>    
-                        </button>
+                    <button type="submit" class="btn btn-danger delete" title="Obrisi">
+                        Delete
+                    </button>
                 </form>
             </td>
         </tr>

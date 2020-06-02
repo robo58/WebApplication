@@ -1,0 +1,28 @@
+﻿@model DodatnaOprema
+
+
+<tr>
+    <td>
+        @Model.IdDodatneOpreme
+        <input type="hidden" asp-for="IdDodatneOpreme" data-save="" />
+    </td>
+    <td>
+        <input type="checkbox" asp-for="Siber" data-save="" class="custom-checkbox" />
+    </td>
+    <td>
+        <input type="checkbox" asp-for="Klima" data-save="" class="custom-checkbox" />
+    </td>
+    <td>
+        <input type="checkbox" asp-for="KozniSicevi" data-save="" class="custom-checkbox" />
+    </td>
+    <td>
+        <button type="submit" class="btn btn-sm btn-primary save" title="Spremi">
+            Save
+        </button>
+    </td>
+    <td>
+        <button class="btn btn-sm cancel" title="Odustani">
+            Cancel
+        </button>
+    </td>
+</tr>
