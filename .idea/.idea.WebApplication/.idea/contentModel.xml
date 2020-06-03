@@ -18,6 +18,13 @@
           <e p="CertifikatiController.cs" t="Include" />
           <e p="DodatnaOpremaController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
+          <e p="KategorijeController.cs" t="Include" />
+          <e p="MjenjaciController.cs" t="Include" />
+          <e p="OdjeliController.cs" t="Include" />
+          <e p="OsobeController.cs" t="Include" />
+          <e p="ProizvodjaciController.cs" t="Include" />
+          <e p="SpecifikacijeController.cs" t="Include" />
+          <e p="VrsteGorivaController.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
           <e p="Boje.cs" t="Include" />
@@ -29,6 +36,7 @@
           <e p="Mjenjaci.cs" t="Include" />
           <e p="Modeli.cs" t="Include" />
           <e p="Odjeli.cs" t="Include" />
+          <e p="OpremaHelper.cs" t="Include" />
           <e p="Osobe.cs" t="Include" />
           <e p="PI10Context.cs" t="Include" />
           <e p="Ponuda.cs" t="Include" />
@@ -67,7 +75,15 @@
           <e p="BojeViewModel.cs" t="Include" />
           <e p="CertifikatiViewModel.cs" t="Include" />
           <e p="DodatneOpremeViewModel.cs" t="Include" />
+          <e p="KategorijeViewModel.cs" t="Include" />
+          <e p="MjenjaciViewModel.cs" t="Include" />
+          <e p="OdjeliViewModel.cs" t="Include" />
+          <e p="OsobeViewModel.cs" t="Include" />
           <e p="PagingInfo.cs" t="Include" />
+          <e p="ProizvodjaciViewModel.cs" t="Include" />
+          <e p="SpecifikacijaViewModel.cs" t="Include" />
+          <e p="SpecifikacijeViewModel.cs" t="Include" />
+          <e p="VrsteGorivaViewModel.cs" t="Include" />
         </e>
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
@@ -93,6 +109,31 @@
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
           </e>
+          <e p="Kategorije" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Mjenjaci" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Odjeli" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Osobe" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Proizvodjaci" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
@@ -102,6 +143,18 @@
               </e>
             </e>
             <e p="Error.cshtml" t="Include" />
+          </e>
+          <e p="Specifikacije" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
+          </e>
+          <e p="VrsteGoriva" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
           </e>
         </e>
         <e p="WebApplication.csproj" t="IncludeRecursive" />

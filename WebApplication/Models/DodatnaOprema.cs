@@ -15,6 +15,27 @@ namespace WebApplication.Models
         public bool Klima { get; set; }
         public bool KozniSicevi { get; set; }
 
+        public override string ToString()
+        {
+            string s = "";
+            if (Klima)
+            {
+                s += "Klima,";
+            }
+
+            if (Siber)
+            {
+                s += "Siber,";
+            }
+
+            if (KozniSicevi)
+            {
+                s += "Kozni Sicevi,";
+            }
+
+            return s;
+        }
+
         public virtual ICollection<Specifikacije> Specifikacije { get; set; }
     }
 }

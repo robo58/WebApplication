@@ -16,34 +16,44 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.Controller == "DodatnaOprema" ? "active": "")" asp-action="Index" asp-controller="DodatnaOprema">Dodatna oprema</a>
+        <a class="nav-link @(ViewBag.Controller == "DodatnaOprema" ? "active" : "")" asp-action="Index" asp-controller="DodatnaOprema">
+            Dodatna oprema
+        </a>
     </li>
         <li class="nav-item">
             <a class="nav-link
-               @(ViewBag.Controller == "Partner" ? "active" : "")" asp-action="Index" asp-controller="Partner">
-                 Partneri
+               @(ViewBag.Controller == "Kategorije" ? "active" : "")" asp-action="Index" asp-controller="Kategorije">
+                 Kategorije
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link @(ViewBag.Controller == "Dokument" ? "active" : "")" asp-action="Index" asp-controller="Dokument">
-                Dokumenti
+            <a class="nav-link @(ViewBag.Controller == "Mjenjaci" ? "active" : "")" asp-action="Index" asp-controller="Mjenjaci">
+                Mjenjaci
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link @(ViewBag.Controller == "Izvjestaj" ? "active" : "")" asp-action="Index" asp-controller="Izvjestaj">
-                Izvjestaji
+            <a class="nav-link @(ViewBag.Controller == "Odjeli" ? "active" : "")" asp-action="Index" asp-controller="Odjeli">
+                Odjeli
             </a>
         </li>
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.Controller == "Logovi" ? "active" : "")" asp-action="Index" asp-controller="Logovi">
-            Pregled log datoteka
+        <a class="nav-link @(ViewBag.Controller == "Proizvodjaci" ? "active" : "")" asp-action="Index" asp-controller="Proizvodjaci">
+            Proizvodjaci
         </a>
     </li>
-    
     <li class="nav-item">
-        <a class="nav-link @(ViewBag.Controller == "Dokumentacija" ? "active" : "")" asp-action="Index" asp-controller="Dokumentacija">
-            WebApi Dokumentacija
+        <a class="nav-link @(ViewBag.Controller == "Osobe" ? "active" : "")" asp-action="Index" asp-controller="Osobe">
+            Osobe
         </a>
     </li>
-    
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "VrsteGoriva" ? "active" : "")" asp-action="Index" asp-controller="VrsteGoriva">
+            Vrste goriva
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Specifikacije" ? "active" : "")" asp-action="Index" asp-controller="Specifikacije">
+            Specifikacije
+        </a>
+    </li>
 </ul>

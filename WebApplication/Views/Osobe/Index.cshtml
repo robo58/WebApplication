@@ -1,0 +1,61 @@
+﻿@model WebApplication.ViewModels.OsobeViewModel
+@{
+    ViewData["Title"] = "Popis osoba";
+}
+
+<a asp-action="Create">Unos Nove osobe</a>
+
+<pager page-info="@Model.PagingInfo" page-title="Unesite zeljenu stranicu" page-action="Index" class="float-right"></pager>
+
+<table class="table table-sm table-striped table-hover" id="tabledrzave">
+    <thead>
+    <tr>
+        <th><a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort != 1 || !Model.PagingInfo.Ascending)">Id osobe</a></th>
+        <th><a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort != 2 || !Model.PagingInfo.Ascending)">Ime</a></th>
+        <th><a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort != 3 || !Model.PagingInfo.Ascending)">Prezime</a></th>
+        <th><a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort != 4 || !Model.PagingInfo.Ascending)">Datum rodjenja</a></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var osoba in Model.Osobe)
+    {
+        <tr>
+            <td class="text-center">@osoba.IdOsobe</td>
+            <td class="text-left">@osoba.Ime</td>
+            <td class="text-left">@osoba.Prezime</td>
+            <td class="text-left">@osoba.DatumRodjenja</td>
+            <td class="btn-group">
+                <a asp-action="Edit"
+                   asp-route-id="@osoba.IdOsobe"
+                   asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-sort="@Model.PagingInfo.Sort"
+                   asp-route-ascending="@Model.PagingInfo.Ascending"
+                   class="btn btn-sm btn-secondary" title="Azuriraj">
+                    Edit
+                </a>
+                
+                <form asp-action="Delete" method="POST" 
+                      asp-route-page="@Model.PagingInfo.CurrentPage" 
+                      asp-route-sort="@Model.PagingInfo.Sort" 
+                      asp-route-ascending="@Model.PagingInfo.Ascending">
+                    <input type="hidden" name="id" value="@osoba.IdOsobe" />
+                    <button type="submit" class="btn btn-sm btn-danger delete" title="Obrisi">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Styles 
+{
+    
+}
+
+@section Scripts
+{
+    
+}

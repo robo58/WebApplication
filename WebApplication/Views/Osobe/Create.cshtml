@@ -1,0 +1,26 @@
+﻿@model Osobe
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdOsobe"></label>
+        <input asp-for="IdOsobe" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ime"></label>
+        <input asp-for="Ime" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Prezime"></label>
+        <input asp-for="Prezime" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumRodjenja"></label>
+        <input type="date" asp-for="DatumRodjenja" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+
+</form>

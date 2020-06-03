@@ -1,0 +1,53 @@
+﻿@model Specifikacije
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdSpecifikacija"></label>
+        <input asp-for="IdSpecifikacija" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="KonjskeSnage"></label>
+        <input asp-for="KonjskeSnage" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdMjenjaca"></label>
+        <div><span asp-validation-for="IdMjenjaca" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdMjenjaca" asp-items="ViewBag.Mjenjaci">
+            <option selected value="" disabled>Odaberite Mjenjac</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdBoje"></label>
+        <div><span asp-validation-for="IdBoje" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdBoje" asp-items="ViewBag.Boje">
+            <option selected value="" disabled>Odaberite Boju</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdDodatneOpreme"></label>
+        <div><span asp-validation-for="IdDodatneOpreme" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdDodatneOpreme" asp-items="ViewBag.DodatnaOprema">
+            <option selected value="" disabled>Odaberite Dodatnu opremu</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdVrsteGoriva"></label>
+        <div><span asp-validation-for="IdVrsteGoriva" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdVrsteGoriva" asp-items="ViewBag.VrsteGoriva">
+            <option selected value="" disabled>Odaberite vrstu goriva</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="VelicinaTankaULitrima"></label>
+        <input asp-for="VelicinaTankaULitrima" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Potrosnja"></label>
+        <input asp-for="Potrosnja" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

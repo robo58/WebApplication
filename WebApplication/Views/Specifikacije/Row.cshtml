@@ -1,0 +1,26 @@
+﻿@using WebApplication.Controllers
+@model WebApplication.ViewModels.SpecifikacijaViewModel
+
+<tr>
+    <td class="text-left">@Model.IdSpecifikacija</td>
+    <td class="text-left">@Model.KonjskeSnage</td>
+    <td class="text-left">@Model.NazivMjenjaca</td>
+    <td class="text-left">@Model.NazivBoje</td>
+    <td class="text-left">@Model.NazivDodatneOpreme</td>
+    <td class="text-left">@Model.NazivVrsteGoriva</td>
+    <td class="text-left">@Model.VelicinaTankaULitrima</td>
+    <td class="text-left">@Model.Potrosnja</td>
+    <td>
+        <a class="btn btn-sm" title="Azuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <form asp-action="Delete" method="POST">
+            <input type="hidden" name="id" value="@Model.IdSpecifikacija" />
+            <button data-idspec="@Model.IdSpecifikacija" type="submit" class="btn btn-sm btn-danger deleteajax" title="Obrisi">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+    </td>
+</tr>
