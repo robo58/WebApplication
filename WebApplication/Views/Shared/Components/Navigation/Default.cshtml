@@ -56,4 +56,36 @@
             Specifikacije
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Tvrtke" ? "active" : "")" asp-action="Index" asp-controller="Tvrtke">
+            Tvrtke
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Klijenti" ? "active" : "")" asp-action="Index" asp-controller="Klijenti">
+            Klijenti
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Usluge" ? "active" : "")" asp-action="Index" asp-controller="Usluge">
+            Usluge
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Zaposlenici" ? "active" : "")" asp-action="Index" asp-controller="Zaposlenici">
+            Zaposlenici
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Profili" ? "active" : "")" asp-action="Index" asp-controller="Profili">
+            Profili
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Modeli" ? "active" : "")" asp-action="Index" asp-controller="Modeli">
+            Modeli
+        </a>
+    </li>
+   
+    
 </ul>

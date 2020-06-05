@@ -1,0 +1,27 @@
+﻿@using WebApplication.Controllers
+@model WebApplication.ViewModels.ModelViewModel
+
+<tr>
+    <td class="text-left">@Model.IdModela</td>
+    <td class="text-left">@Model.Naziv</td>
+    <td class="text-left">@Model.Specifikacija.KonjskeSnage</td>
+    <td class="text-left">@Model.Specifikacija.NazivMjenjaca</td>
+    <td class="text-left">@Model.Specifikacija.NazivBoje</td>
+    <td class="text-left">@Model.Specifikacija.NazivDodatneOpreme</td>
+    <td class="text-left">@Model.Specifikacija.NazivVrsteGoriva</td>
+    <td class="text-left">@Model.Specifikacija.VelicinaTankaULitrima</td>
+    <td class="text-left">@Model.Specifikacija.Potrosnja</td>
+    <td class="btn-group">
+                <a asp-action="Edit"
+                   asp-route-id="@Model.IdModela"
+                   class="btn btn-sm btn-secondary" title="Azuriraj">
+                    Edit
+                </a>
+        <form asp-action="Delete" method="POST">
+            <input type="hidden" name="id" value="@Model.IdModela" />
+            <button data-idmodela="@Model.IdModela" type="submit" class="btn btn-danger deleteajax" title="Obrisi">
+                Delete
+            </button>
+        </form>
+    </td>
+</tr>

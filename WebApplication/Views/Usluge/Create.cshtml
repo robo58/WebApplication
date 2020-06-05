@@ -1,0 +1,24 @@
+﻿@model Usluge
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdUsluge"></label>
+        <input asp-for="IdUsluge" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdKategorije"></label>
+        <div><span asp-validation-for="IdKategorije" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdKategorije" asp-items="ViewBag.Kategorije">
+            <option selected value="" disabled>Odaberite Kategoriju</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="NazivUsluge"></label>
+        <input asp-for="NazivUsluge" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

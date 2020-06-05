@@ -1,9 +1,9 @@
-﻿@model WebApplication.ViewModels.SpecifikacijeViewModel
+﻿@model WebApplication.ViewModels.ModeliViewModel
 @{
-    ViewData["Title"] = "Popis specifikacija";
+    ViewData["Title"] = "Popis modela";
 }
 
-<a asp-action="Create">Unos Nove specifikacije</a>
+<a asp-action="Create">Unos Novog modela</a>
 
 <pager page-info="@Model.PagingInfo" page-title="Unesite zeljenu stranicu" page-action="Index" class="float-right"></pager>
 
@@ -11,8 +11,7 @@
     <thead>
     <tr>
         @{
-            string[] nazivi = {"ID specifikacije", "Konjske snage", "Mjenjac","Boja","Dodatna oprema","Gorivo",
-            "Velicina tanka(l)","Potrosnja(l/100km)"};
+            string[] nazivi = {"ID modela", "Naziv modela", "Konjske snage", "Mjenjac", "Boja", "Dodatna oprema", "Gorivo", "Velicina tanka", "Potrosnja"};
             for (int i=1; i<= nazivi.Length; i++)
             {
                 <th><a asp-route-sort="@i"
@@ -26,9 +25,9 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var specifikacija in Model.Specifikacije)
+    @foreach (var model in Model.Modeli)
     {
-        <partial name="Row" model="specifikacija"/>
+        <partial name="Row" model="model"/>
     }
     </tbody>
 </table>
@@ -42,7 +41,10 @@
 {
     <script>
         $(function() {
-          SetDeleteAjax(".deleteajax", '@Url.Action("Delete")', 'idspec');
-        });      
+          SetDeleteAjax(".deleteajax", '@Url.Action("Delete")', 'idmodela');
+        });     
+        $(function() {
+          SetEditAjax(".editajax", '@Url.Action("Edit")', 'idmodela');
+        });                  
     </script>
 }

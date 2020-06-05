@@ -19,12 +19,18 @@
           <e p="DodatnaOpremaController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
           <e p="KategorijeController.cs" t="Include" />
+          <e p="KlijentiController.cs" t="Include" />
           <e p="MjenjaciController.cs" t="Include" />
+          <e p="ModeliController.cs" t="Include" />
           <e p="OdjeliController.cs" t="Include" />
           <e p="OsobeController.cs" t="Include" />
+          <e p="ProfiliController.cs" t="Include" />
           <e p="ProizvodjaciController.cs" t="Include" />
           <e p="SpecifikacijeController.cs" t="Include" />
+          <e p="TvrtkeController.cs" t="Include" />
+          <e p="UslugeController.cs" t="Include" />
           <e p="VrsteGorivaController.cs" t="Include" />
+          <e p="ZaposleniciController.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
           <e p="Boje.cs" t="Include" />
@@ -76,14 +82,25 @@
           <e p="CertifikatiViewModel.cs" t="Include" />
           <e p="DodatneOpremeViewModel.cs" t="Include" />
           <e p="KategorijeViewModel.cs" t="Include" />
+          <e p="KlijentiViewModel.cs" t="Include" />
+          <e p="KlijentViewModel.cs" t="Include" />
           <e p="MjenjaciViewModel.cs" t="Include" />
+          <e p="ModeliViewModel.cs" t="Include" />
+          <e p="ModelViewModel.cs" t="Include" />
           <e p="OdjeliViewModel.cs" t="Include" />
           <e p="OsobeViewModel.cs" t="Include" />
           <e p="PagingInfo.cs" t="Include" />
+          <e p="ProfiliViewModel.cs" t="Include" />
+          <e p="ProfilViewModel.cs" t="Include" />
           <e p="ProizvodjaciViewModel.cs" t="Include" />
           <e p="SpecifikacijaViewModel.cs" t="Include" />
           <e p="SpecifikacijeViewModel.cs" t="Include" />
+          <e p="TvrtkeViewModel.cs" t="Include" />
+          <e p="UslugaViewModel.cs" t="Include" />
+          <e p="UslugeViewModel.cs" t="Include" />
           <e p="VrsteGorivaViewModel.cs" t="Include" />
+          <e p="ZaposleniciViewModel.cs" t="Include" />
+          <e p="ZaposlenikViewModel.cs" t="Include" />
         </e>
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
@@ -114,10 +131,24 @@
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
+          <e p="Klijenti" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
+          </e>
           <e p="Mjenjaci" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Modeli" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
           </e>
           <e p="Odjeli" t="Include">
             <e p="Create.cshtml" t="Include" />
@@ -128,6 +159,13 @@
             <e p="Create.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Profili" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
           </e>
           <e p="Proizvodjaci" t="Include">
             <e p="Create.cshtml" t="Include" />
@@ -151,10 +189,31 @@
             <e p="Index.cshtml" t="Include" />
             <e p="Row.cshtml" t="Include" />
           </e>
+          <e p="Tvrtke" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
+          </e>
+          <e p="Usluge" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
+          </e>
           <e p="VrsteGoriva" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Zaposlenici" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
           </e>
         </e>
         <e p="WebApplication.csproj" t="IncludeRecursive" />

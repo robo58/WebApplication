@@ -1,0 +1,26 @@
+﻿@model Tvrtke
+
+
+<tr>
+    <td>
+        @Model.IdTvrtke
+        <input type="hidden" asp-for="IdTvrtke" data-save="" />
+    </td>
+    <td>
+        <input asp-for="Naziv" data-save="" class="text-left" />
+    </td>
+    <td>
+        <input asp-for="DogovoreniPopustPostotak" data-save="" class="text-left" />
+    </td>
+    <td>
+        <input asp-for="VrijemeSuradnjeGodine" data-save="" class="text-left" />
+    </td>
+    <td>
+        <button type="submit" class="btn btn-sm btn-primary save" title="Spremi">
+            Save
+        </button>
+        <button class="btn btn-sm cancel" title="Odustani">
+            Cancel
+        </button>
+    </td>
+</tr>

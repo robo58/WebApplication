@@ -14,12 +14,12 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
-    public class SpecifikacijeController : Controller
+    public class ZaposleniciController : Controller
     {
         private readonly PI10Context _ctx;
         private readonly AppSettings _appSettings;
 
-        public SpecifikacijeController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot)
+        public ZaposleniciController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot)
         {
             _ctx = ctx;
             _appSettings = optionsSnapshot.Value;
@@ -28,7 +28,7 @@ namespace WebApplication.Controllers
         public IActionResult Index(int page = 1, int sort = 1, bool ascending = true)
         {
             int pagesize = _appSettings.PageSize;
-            var query = _ctx.Specifikacije.AsNoTracking();
+            var query = _ctx.Zaposlenici.AsNoTracking();
             int count = query.Count();
             
             var pagingInfo = new PagingInfo
@@ -45,32 +45,20 @@ namespace WebApplication.Controllers
                 return RedirectToAction(nameof(Index), new { page = pagingInfo.TotalPages, sort, ascending });
             }
 
-            System.Linq.Expressions.Expression<Func<Specifikacije, object>> orderSelector = null;
+            System.Linq.Expressions.Expression<Func<Zaposlenici, object>> orderSelector = null;
             switch (sort)
             {
                 case 1:
-                    orderSelector = b => b.IdSpecifikacija;
+                    orderSelector = b => b.IdZaposlenika;
                     break;
                 case 2:
-                    orderSelector = b => b.KonjskeSnage;
+                    orderSelector = b => b.IdOdjelaNavigation.Naziv;
                     break;
                 case 3:
-                    orderSelector = b => b.IdMjenjacaNavigation.Naziv;
+                    orderSelector = b => b.IdOsobeNavigation.Ime;
                     break;
                 case 4:
-                    orderSelector = b => b.IdBojeNavigation.Naziv;
-                    break;
-                case 5:
-                    orderSelector = b => b.IdDodatneOpremeNavigation.ToString();
-                    break;
-                case 6:
-                    orderSelector = b => b.IdVrsteGorivaNavigation.Naziv;
-                    break;
-                case 7:
-                    orderSelector = b => b.VelicinaTankaULitrima;
-                    break;
-                case 8:
-                    orderSelector = b => b.Potrosnja;
+                    orderSelector = b => b.RadniStaz;
                     break;
             }
 
@@ -79,25 +67,21 @@ namespace WebApplication.Controllers
                 query = ascending ? query.OrderBy(orderSelector) : query.OrderByDescending(orderSelector);
             }
             
-            var specifikacije =query
-                .Select(s=>new SpecifikacijaViewModel
+            var zaposlenici =query
+                .Select(s=>new ZaposlenikViewModel
                 {
-                    IdSpecifikacija = s.IdSpecifikacija,
-                    KonjskeSnage = s.KonjskeSnage,
-                    NazivMjenjaca = s.IdMjenjacaNavigation.Naziv,
-                    NazivBoje = s.IdBojeNavigation.Naziv,
-                    NazivDodatneOpreme = s.IdDodatneOpremeNavigation.ToString(),
-                    NazivVrsteGoriva = s.IdVrsteGorivaNavigation.Naziv,
-                    VelicinaTankaULitrima = s.VelicinaTankaULitrima,
-                    Potrosnja = s.Potrosnja
+                    IdZaposlenika = s.IdZaposlenika,
+                    NazivOdjela = s.IdOdjelaNavigation.Naziv,
+                    ImeOsobe = s.IdOsobeNavigation.Ime + " " + s.IdOsobeNavigation.Prezime,
+                    RadniStaz = s.RadniStaz
                 })
                 .Skip((page - 1) * pagesize)
                 .Take(pagesize)
                 .ToList();
 
-            var modelD = new SpecifikacijeViewModel()
+            var modelD = new ZaposleniciViewModel
             {
-                Specifikacije = specifikacije,
+                Zaposlenici = zaposlenici,
                 PagingInfo = pagingInfo
             };
             return View(modelD);
@@ -112,31 +96,26 @@ namespace WebApplication.Controllers
         
         private void PrepareDropDownLists()
         {
-            var mjenjaci = _ctx.Mjenjaci.AsNoTracking().OrderBy(d => d.Naziv)
-                .Select(d => new {d.Naziv, d.IdMjenjaca}).ToList();
-            var boje = _ctx.Boje.AsNoTracking().OrderBy(d => d.Naziv)
-                .Select(d => new {d.Naziv, d.IdBoje}).ToList();
-            var dodatnaOprema = _ctx.DodatnaOprema.AsNoTracking().OrderBy(d=>d.IdDodatneOpreme)
-                .Select(d=>new OpremaHelper{IdOpreme = d.IdDodatneOpreme, NazivOpreme = d.ToString()}).ToList();
-            var vrsteGoriva = _ctx.VrsteGoriva.AsNoTracking().OrderBy(d => d.Naziv)
-                .Select(d => new {d.Naziv, d.IdVrsteGoriva}).ToList();
-            ViewBag.Mjenjaci = new SelectList(mjenjaci, nameof(Mjenjaci.IdMjenjaca), nameof(Mjenjaci.Naziv));
-            ViewBag.Boje = new SelectList(boje, nameof(Boje.IdBoje), nameof(Boje.Naziv));
-            ViewBag.DodatnaOprema = new SelectList(dodatnaOprema, nameof(OpremaHelper.IdOpreme), nameof(OpremaHelper.NazivOpreme));
-            ViewBag.VrsteGoriva = new SelectList(vrsteGoriva, nameof(VrsteGoriva.IdVrsteGoriva), nameof(VrsteGoriva.Naziv));
+            var odjeli = _ctx.Odjeli.AsNoTracking().OrderBy(d => d.Naziv)
+                .Select(d => new {d.Naziv, d.IdOdjela}).ToList();
+            var osobe = _ctx.Osobe.AsNoTracking().OrderBy(d => d.Ime)
+                .Select(d => new {ImePrezime = (d.Ime + " " + d.Prezime), d.IdOsobe}).ToList();
+
+            ViewBag.Odjeli = new SelectList(odjeli, nameof(Odjeli.IdOdjela), nameof(Odjeli.Naziv));
+            ViewBag.Osobe = new SelectList(osobe, nameof(Osobe.IdOsobe), "ImePrezime");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Specifikacije specifikacija)
+        public IActionResult Create(Zaposlenici zaposlenik)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _ctx.Add(specifikacija);
+                    _ctx.Add(zaposlenik);
                     _ctx.SaveChanges();
-                    TempData[Constants.Message] = $"specifikacija uspjesno dodana.*";
+                    TempData[Constants.Message] = $"zaposlenik uspjesno dodan.*";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
@@ -144,25 +123,25 @@ namespace WebApplication.Controllers
                 {
                     ModelState.AddModelError(string.Empty, e.Message);
                     PrepareDropDownLists();
-                    return View(specifikacija);
+                    return View(zaposlenik);
                 }
             }
             else
             {
-                return View(specifikacija);
+                return View(zaposlenik);
             }
         }
         
         [HttpGet]
         public IActionResult Edit(int id, int page = 1, int sort = 1, bool ascending = true)
         {
-            var specifikacija = _ctx.Specifikacije
+            var zaposlenik = _ctx.Zaposlenici
                             .AsNoTracking()
-                            .Where(b => b.IdSpecifikacija == id)
+                            .Where(b => b.IdZaposlenika == id)
                             .FirstOrDefault();
-            if (specifikacija == null)
+            if (zaposlenik == null)
             {
-                return NotFound($"Ne postoji specifikacija s oznakom {id}");
+                return NotFound($"Ne postoji zaposlenik s oznakom {id}");
             }
             else
             {
@@ -170,22 +149,22 @@ namespace WebApplication.Controllers
                 ViewBag.Sort = sort;
                 ViewBag.Ascending = ascending;
                 PrepareDropDownLists();
-                return View(specifikacija);
+                return View(zaposlenik);
             }
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Specifikacije specifikacija, int page = 1, int sort = 1, bool ascending = true)
+        public IActionResult Edit(Zaposlenici zaposlenik, int page = 1, int sort = 1, bool ascending = true)
         {
-            if (specifikacija == null)
+            if (zaposlenik == null)
             {
                 return NotFound("Nema poslanih podataka");
             }
-            bool checkId = _ctx.Specifikacije.Any(m => m.IdSpecifikacija == specifikacija.IdSpecifikacija);
+            bool checkId = _ctx.Zaposlenici.Any(m => m.IdZaposlenika == zaposlenik.IdZaposlenika);
             if (!checkId)
             {
-                return NotFound($"Neispravan id specifikacije: {specifikacija?.IdSpecifikacija}");
+                return NotFound($"Neispravan id zaposlenika: {zaposlenik?.IdZaposlenika}");
             }
 
             PrepareDropDownLists();
@@ -193,44 +172,40 @@ namespace WebApplication.Controllers
             {
                 try
                 {
-                    _ctx.Update(specifikacija);
+                    _ctx.Update(zaposlenik);
                     _ctx.SaveChanges();
 
-                    TempData[Constants.Message] = "Specifikacija ažurirana.";
+                    TempData[Constants.Message] = "zaposlenik ažuriran.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index), new { page, sort, ascending });          
                 }
                 catch (Exception exc)
                 {
                     ModelState.AddModelError(string.Empty, exc.Message);
-                    return View(specifikacija);
+                    return View(zaposlenik);
                 }
             }
             else
             {
-                return View(specifikacija);
+                return View(zaposlenik);
             }
         }
 
         public IActionResult Row(int id)
         {
-            var specifikacija = _ctx.Specifikacije                       
-                .Where(s => s.IdSpecifikacija == id)
-                .Select(s => new SpecifikacijaViewModel
+            var zaposlenik = _ctx.Zaposlenici                       
+                .Where(s => s.IdZaposlenika == id)
+                .Select(s=>new ZaposlenikViewModel
                 {
-                    IdSpecifikacija = s.IdSpecifikacija,
-                    KonjskeSnage = s.KonjskeSnage,
-                    NazivMjenjaca = s.IdMjenjacaNavigation.Naziv,
-                    NazivBoje = s.IdBojeNavigation.Naziv,
-                    NazivDodatneOpreme = s.IdDodatneOpremeNavigation.ToString(),
-                    NazivVrsteGoriva = s.IdVrsteGorivaNavigation.Naziv,
-                    VelicinaTankaULitrima = s.VelicinaTankaULitrima,
-                    Potrosnja = s.Potrosnja
+                    IdZaposlenika = s.IdZaposlenika,
+                    NazivOdjela = s.IdOdjelaNavigation.Naziv,
+                    ImeOsobe = s.IdOsobeNavigation.Ime + " " + s.IdOsobeNavigation.Prezime,
+                    RadniStaz = s.RadniStaz
                 })
                 .SingleOrDefault();
-            if (specifikacija != null)
+            if (zaposlenik != null)
             {
-                return PartialView(specifikacija);
+                return PartialView(zaposlenik);
             }
             else
             {
@@ -244,8 +219,8 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, int page = 1, int sort = 1, bool ascending = true)
         {
-            var specifikacija = await _ctx.Specifikacije.FindAsync(id);
-            if (specifikacija == null)
+            var zaposlenik = await _ctx.Zaposlenici.FindAsync(id);
+            if (zaposlenik == null)
             {
                 return NotFound(id);
             }
@@ -253,11 +228,11 @@ namespace WebApplication.Controllers
             {
                 try
                 {
-                    _ctx.Remove(specifikacija);
+                    _ctx.Remove(zaposlenik);
                     await _ctx.SaveChangesAsync();
                     var result = new
                     {
-                        message = $"Specifikacija sa sifrom {id} obrisano.",
+                        message = $"zaposlenik sa sifrom {id} obrisan.",
                         successful = true
                     };
                     return Json(result);
@@ -266,7 +241,7 @@ namespace WebApplication.Controllers
                 {
                     var result = new
                     {
-                        message = $"Pogreska prilikom bisanja specifikacije {e.Message}",
+                        message = $"Pogreska prilikom bisanja zaposlenika {e.Message}",
                         successful = false
                     };
                     return Json(result);

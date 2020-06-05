@@ -1,0 +1,21 @@
+﻿@using WebApplication.Controllers
+@model WebApplication.ViewModels.UslugaViewModel
+
+<tr>
+    <td class="text-left">@Model.IdUsluge</td>
+    <td class="text-left">@Model.NazivUsluge</td>
+    <td class="text-left">@Model.NazivKategorije</td>
+    <td class="btn-group">
+                <a asp-action="Edit"
+                   asp-route-id="@Model.IdUsluge"
+                   class="btn btn-sm btn-secondary" title="Azuriraj">
+                    Edit
+                </a>
+        <form asp-action="Delete" method="POST">
+            <input type="hidden" name="id" value="@Model.IdUsluge" />
+            <button data-idusluga="@Model.IdUsluge" type="submit" class="btn btn-danger deleteajax" title="Obrisi">
+                Delete
+            </button>
+        </form>
+    </td>
+</tr>

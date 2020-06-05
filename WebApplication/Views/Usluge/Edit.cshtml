@@ -1,0 +1,32 @@
+﻿@model Usluge
+
+@{
+    ViewBag.Title = "Ažuriranje usluge";
+}
+
+<form asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <input type="hidden" asp-for="IdUsluge" />
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="NazivUsluge"></label>
+        <input asp-for="NazivUsluge" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdKategorije"></label>
+        <div><span asp-validation-for="IdKategorije" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdKategorije" asp-items="ViewBag.Kategorije">
+            <option disabled selected value="">Odaberite kategoriju</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

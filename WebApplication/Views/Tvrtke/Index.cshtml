@@ -1,0 +1,60 @@
+﻿@model WebApplication.ViewModels.TvrtkeViewModel
+@{
+    ViewData["Title"] = "Popis tvrtki";
+}
+
+<a asp-action="Create">Unos nove tvrtke</a>
+
+<pager page-info="@Model.PagingInfo" page-title="Unesite zeljenu stranicu" page-action="Index" class="float-right"></pager>
+
+<table class="table table-sm table-striped table-hover" id="tabledrzave">
+    <thead>
+    <tr>
+        @{
+            string[] nazivi = { "IdTvrtke", "Naziv", "DogovoreniPopustPostotak", "VrijemeSuradnjeGodine"};
+            bool[] sortable = {true, true, false, true};
+            for (int i=1; i<= nazivi.Length; i++)
+            {
+                <th>
+                    @if (sortable[i - 1])
+                    {
+                        <a asp-route-sort="@i"
+                           asp-route-page="@Model.PagingInfo.CurrentPage"
+                           asp-route-ascending="@(Model.PagingInfo.Sort != i || !Model.PagingInfo.Ascending)">
+                            @nazivi[i - 1]
+                        </a>
+                    }
+                    else
+                    {
+                        @nazivi[i - 1]
+                    }
+                </th>
+            }
+        }
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var tvrtka in Model.Tvrtke)
+    {
+        <partial name="Row" model="tvrtka"/>
+    }
+    </tbody>
+</table>
+
+@section Styles 
+{
+    
+}
+
+@section Scripts
+{
+    <script>
+        $(function() {
+          SetDeleteAjax(".deleteajax", '@Url.Action("Delete")', 'idtvrtke');
+        });
+        $(function() {
+            SetEditAjax(".editajax", '@Url.Action("Edit")', 'idtvrtke');
+        });        
+    </script>
+}

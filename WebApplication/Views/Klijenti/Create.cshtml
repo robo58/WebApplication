@@ -1,0 +1,27 @@
+﻿@model Klijenti
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdKlijenta"></label>
+        <input asp-for="IdKlijenta" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdOsobe"></label>
+        <div><span asp-validation-for="IdOsobe" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdOsobe" asp-items="ViewBag.Osobe">
+            <option selected value="" disabled>Odaberite Osobu</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdTvrtke"></label>
+        <div><span asp-validation-for="IdTvrtke" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdTvrtke" asp-items="ViewBag.Tvrtke">
+            <option selected value="" disabled>Odaberite Tvrtku</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

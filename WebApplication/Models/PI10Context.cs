@@ -315,7 +315,7 @@ namespace WebApplication.Models
                 entity.Property(e => e.IdProfila)
                     .HasColumnName("id_profila")
                     .ValueGeneratedNever();
-
+                
                 entity.Property(e => e.IdZaposlenika).HasColumnName("id_zaposlenika");
 
                 entity.HasOne(d => d.IdZaposlenikaNavigation)
