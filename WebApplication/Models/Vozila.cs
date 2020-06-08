@@ -14,8 +14,8 @@ namespace WebApplication.Models
         public int IdVozila { get; set; }
         public int? IdProizvodjaca { get; set; }
         public int? IdModela { get; set; }
-        public int? Cijena { get; set; }
-        public bool? Dostupno { get; set; }
+        public int Cijena { get; set; }
+        public bool Dostupno { get; set; }
 
         public virtual Modeli IdModelaNavigation { get; set; }
         public virtual Proizvodjaci IdProizvodjacaNavigation { get; set; }

@@ -1,0 +1,35 @@
+﻿@model Vozila
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdVozila"></label>
+        <input asp-for="IdVozila" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdProizvodjaca"></label>
+        <div><span asp-validation-for="IdProizvodjaca" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdProizvodjaca" asp-items="ViewBag.Proizvodjaci">
+            <option selected value="" disabled>Odaberite proizvodjaca</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdModela"></label>
+        <div><span asp-validation-for="IdModela" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdModela" asp-items="ViewBag.Modeli">
+            <option selected value="" disabled>Odaberite model</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cijena"></label>
+        <input asp-for="Cijena" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dostupno"></label>
+        <input type="checkbox" asp-for="Dostupno" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

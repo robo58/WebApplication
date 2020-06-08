@@ -29,7 +29,9 @@
           <e p="SpecifikacijeController.cs" t="Include" />
           <e p="TvrtkeController.cs" t="Include" />
           <e p="UslugeController.cs" t="Include" />
+          <e p="VozilaController.cs" t="Include" />
           <e p="VrsteGorivaController.cs" t="Include" />
+          <e p="ZahtjevController.cs" t="Include" />
           <e p="ZaposleniciController.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
@@ -98,7 +100,11 @@
           <e p="TvrtkeViewModel.cs" t="Include" />
           <e p="UslugaViewModel.cs" t="Include" />
           <e p="UslugeViewModel.cs" t="Include" />
+          <e p="VozilaViewModel.cs" t="Include" />
+          <e p="VoziloViewModel.cs" t="Include" />
           <e p="VrsteGorivaViewModel.cs" t="Include" />
+          <e p="ZahtjeviViewModel.cs" t="Include" />
+          <e p="ZahtjevViewModel.cs" t="Include" />
           <e p="ZaposleniciViewModel.cs" t="Include" />
           <e p="ZaposlenikViewModel.cs" t="Include" />
         </e>
@@ -203,10 +209,24 @@
             <e p="Index.cshtml" t="Include" />
             <e p="Row.cshtml" t="Include" />
           </e>
+          <e p="Vozila" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
+          </e>
           <e p="VrsteGoriva" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Zahtjev" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="Edit.cshtml" t="Include" />
+            <e p="ErrorMessageRow.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Row.cshtml" t="Include" />
           </e>
           <e p="Zaposlenici" t="Include">
             <e p="Create.cshtml" t="Include" />

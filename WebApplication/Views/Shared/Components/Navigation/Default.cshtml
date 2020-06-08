@@ -86,6 +86,14 @@
             Modeli
         </a>
     </li>
-   
-    
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Vozila" ? "active" : "")" asp-action="Index" asp-controller="Vozila">
+            Vozila
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.Controller == "Zahtjev" ? "active" : "")" asp-action="Index" asp-controller="Zahtjev">
+            Zahtjevi
+        </a>
+    </li>
 </ul>

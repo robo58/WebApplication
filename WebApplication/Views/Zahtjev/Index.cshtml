@@ -1,0 +1,50 @@
+﻿@model WebApplication.ViewModels.ZahtjeviViewModel
+@{
+    ViewData["Title"] = "Popis zahtjeva";
+}
+
+<a asp-action="Create">Unos Novog zahtjeva</a>
+
+<pager page-info="@Model.PagingInfo" page-title="Unesite zeljenu stranicu" page-action="Index" class="float-right"></pager>
+
+<table class="table table-sm table-striped table-hover" id="tabledrzave">
+    <thead>
+    <tr>
+        @{
+            string[] nazivi = {"ID zahtjeva", "Naziv Usluge", "Naziv Klijenta", "Datum od", "Datum do", "Broj vozila"};
+            for (int i=1; i<= nazivi.Length; i++)
+            {
+                <th><a asp-route-sort="@i"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-ascending="@(Model.PagingInfo.Sort != i || !Model.PagingInfo.Ascending)">
+                    @nazivi[i-1]
+                </a></th>
+            }
+        }
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var zahtjev in Model.Zahtjevi)
+    {
+        <partial name="Row" model="zahtjev"/>
+    }
+    </tbody>
+</table>
+
+@section Styles 
+{
+    
+}
+
+@section Scripts
+{
+    <script>
+        $(function() {
+          SetDeleteAjax(".deleteajax", '@Url.Action("Delete")', 'idzahtjeva');
+        });     
+        $(function() {
+          SetEditAjax(".editajax", '@Url.Action("Edit")', 'idzahtjeva');
+        });                  
+    </script>
+}

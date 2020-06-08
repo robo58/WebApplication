@@ -1,0 +1,39 @@
+﻿@model Zahtjev
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="IdZahtjeva"></label>
+        <input asp-for="IdZahtjeva" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdUsluge"></label>
+        <div><span asp-validation-for="IdUsluge" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdUsluge" asp-items="ViewBag.Usluge">
+            <option selected value="" disabled>Odaberite uslugu</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdKlijenta"></label>
+        <div><span asp-validation-for="IdKlijenta" class="text-danger"></span></div>
+        <select class="form-control" asp-for="IdKlijenta" asp-items="ViewBag.Klijenti">
+            <option selected value="" disabled>Odaberite klijenta</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumOd"></label>
+        <input type="date" asp-for="DatumOd" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumDo"></label>
+        <input type="date" asp-for="DatumDo" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="BrojVozila"></label>
+        <input asp-for="BrojVozila" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>
