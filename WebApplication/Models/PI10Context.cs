@@ -77,7 +77,7 @@ namespace WebApplication.Models
 
                 entity.Property(e => e.IdCertifikata)
                     .HasColumnName("id_certifikata")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("(@@identity)");
 
                 entity.Property(e => e.Naziv)
                     .HasColumnName("naziv")
@@ -178,6 +178,11 @@ namespace WebApplication.Models
 
                 entity.Property(e => e.Naziv)
                     .HasColumnName("naziv")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Tip)
+                    .HasColumnName("tip")
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
@@ -315,7 +320,7 @@ namespace WebApplication.Models
                 entity.Property(e => e.IdProfila)
                     .HasColumnName("id_profila")
                     .ValueGeneratedNever();
-                
+
                 entity.Property(e => e.IdZaposlenika).HasColumnName("id_zaposlenika");
 
                 entity.HasOne(d => d.IdZaposlenikaNavigation)
@@ -352,10 +357,7 @@ namespace WebApplication.Models
                     .HasColumnName("id_slike")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Lokacija)
-                    .HasColumnName("lokacija")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.SlikaBinary).HasColumnName("slika_binary");
             });
 
             modelBuilder.Entity<SlikeVozila>(entity =>
@@ -482,6 +484,9 @@ namespace WebApplication.Models
 
                 entity.ToTable("vozila");
 
+                entity.HasIndex(x => x.IdVozila)
+                    .HasName("vozila_id_vozila_index");
+
                 entity.Property(e => e.IdVozila)
                     .HasColumnName("id_vozila")
                     .ValueGeneratedNever();
@@ -494,6 +499,8 @@ namespace WebApplication.Models
 
                 entity.Property(e => e.IdProizvodjaca).HasColumnName("id_proizvodjaca");
 
+                entity.Property(e => e.IdSlike).HasColumnName("id_slike");
+
                 entity.HasOne(d => d.IdModelaNavigation)
                     .WithMany(p => p.Vozila)
                     .HasForeignKey(x => x.IdModela)
@@ -503,6 +510,12 @@ namespace WebApplication.Models
                     .WithMany(p => p.Vozila)
                     .HasForeignKey(x => x.IdProizvodjaca)
                     .HasConstraintName("FK__vozila__id_proiz__45F365D3");
+
+                entity.HasOne(d => d.IdSlikeNavigation)
+                    .WithMany(p => p.Vozila)
+                    .HasForeignKey(x => x.IdSlike)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("vozila_slike_id_slike_fk");
             });
 
             modelBuilder.Entity<VrsteGoriva>(entity =>

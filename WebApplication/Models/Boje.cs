@@ -9,8 +9,7 @@ namespace WebApplication.Models
         {
             Specifikacije = new HashSet<Specifikacije>();
         }
-        
-        
+
         public int IdBoje { get; set; }
         public string Naziv { get; set; }
 

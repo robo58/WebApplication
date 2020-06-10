@@ -101,6 +101,7 @@
           <e p="UslugaViewModel.cs" t="Include" />
           <e p="UslugeViewModel.cs" t="Include" />
           <e p="VozilaViewModel.cs" t="Include" />
+          <e p="VoziloSViewModel.cs" t="Include" />
           <e p="VoziloViewModel.cs" t="Include" />
           <e p="VrsteGorivaViewModel.cs" t="Include" />
           <e p="ZahtjeviViewModel.cs" t="Include" />
@@ -215,6 +216,7 @@
             <e p="ErrorMessageRow.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
             <e p="Row.cshtml" t="Include" />
+            <e p="Show.cshtml" t="Include" />
           </e>
           <e p="VrsteGoriva" t="Include">
             <e p="Create.cshtml" t="Include" />
