@@ -32,6 +32,10 @@
         <label asp-for="Dostupno"></label>
         <input type="checkbox" asp-for="Dostupno" class="form-control"/>
     </div>
+    <div class="form-group">
+        <label for="slika">Dodaj sliku</label>
+        <input type="file" name="slika" class="form-control"/>
+    </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Spremi</button>
         <a asp-action="Index"

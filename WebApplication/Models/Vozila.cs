@@ -16,9 +16,11 @@ namespace WebApplication.Models
         public int? IdModela { get; set; }
         public int Cijena { get; set; }
         public bool Dostupno { get; set; }
+        public int? IdSlike { get; set; }
 
         public virtual Modeli IdModelaNavigation { get; set; }
         public virtual Proizvodjaci IdProizvodjacaNavigation { get; set; }
+        public virtual Slike IdSlikeNavigation { get; set; }
         public virtual ICollection<PonudaVozilo> PonudaVozilo { get; set; }
         public virtual ICollection<SlikeVozila> SlikeVozila { get; set; }
     }

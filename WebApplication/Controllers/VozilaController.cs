@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -92,6 +94,50 @@ namespace WebApplication.Controllers
         }
         
         [HttpGet]
+        public IActionResult Show(int id, int page = 1, int sort = 1, bool ascending = true)
+        {
+            var vozilo = _ctx.Vozila
+                .AsNoTracking()
+                .Where(b => b.IdVozila == id)
+                .Select(v=> new VozilosViewModel
+                {
+                    IdVozila = v.IdVozila,
+                    Cijena = v.Cijena,
+                    Dostupno = v.Dostupno,
+                    Model = new ModelViewModel
+                    {
+                        IdModela = v.IdModelaNavigation.IdModela,
+                        Naziv = v.IdModelaNavigation.Naziv,
+                        Specifikacija = new SpecifikacijaViewModel
+                        {
+                            IdSpecifikacija = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdSpecifikacija,
+                            KonjskeSnage = v.IdModelaNavigation.IdSpecifikacijaNavigation.KonjskeSnage,
+                            NazivBoje = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdBojeNavigation.Naziv,
+                            NazivDodatneOpreme = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdDodatneOpremeNavigation.ToString(),
+                            NazivMjenjaca = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdMjenjacaNavigation.Naziv,
+                            NazivVrsteGoriva = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdVrsteGorivaNavigation.Naziv,
+                            Potrosnja = v.IdModelaNavigation.IdSpecifikacijaNavigation.Potrosnja,
+                            VelicinaTankaULitrima = v.IdModelaNavigation.IdSpecifikacijaNavigation.VelicinaTankaULitrima
+                        }
+                    },
+                    NazivProizvodjaca = v.IdProizvodjacaNavigation.Naziv
+                })
+                .FirstOrDefault();
+
+            if (vozilo == null)
+            {
+                return NotFound($"Ne postoji vozilo s oznakom {id}");
+            }
+            else
+            {
+                ViewBag.Page = page;
+                ViewBag.Sort = sort;
+                ViewBag.Ascending = ascending;
+                return View(vozilo);
+            }
+        }
+        
+        [HttpGet]
         public IActionResult Create()
         {
             PrepareDropDownLists();
@@ -111,12 +157,36 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Vozila vozilo)
+        public async Task<IActionResult> Create(Vozila vozilo, IFormFile slika)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (slika != null && slika.Length > 0)
+                    {
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            await slika.CopyToAsync(stream);
+                            byte[] image = stream.ToArray();
+                            int GetId()
+                            {
+                                int i = 0;
+                                if (_ctx.SlikeVozila.Any())
+                                {
+                                    i = _ctx.Slike.OrderBy(d=>d.IdSlike).Last().IdSlike + 1;
+                                }
+                                return i;
+                            }
+                            var slike = new Slike
+                            {
+                                IdSlike = GetId(),
+                                SlikaBinary = image
+                            };
+                            _ctx.Add(slike);
+                            vozilo.IdSlike = slike.IdSlike;
+                        }
+                    }
                     _ctx.Add(vozilo);
                     _ctx.SaveChanges();
                     TempData[Constants.Message] = $"vozilo uspjesno dodano.*";
@@ -133,6 +203,22 @@ namespace WebApplication.Controllers
             else
             {
                 return View(vozilo);
+            }
+        }
+        
+        public async Task<FileContentResult> GetImage(int id)
+        {
+            byte[] image = await _ctx.Slike.Where(a => a.IdSlike == id)
+                .Select(a => a.SlikaBinary)
+                .SingleOrDefaultAsync();
+
+            if (image != null)
+            {
+                return File(image, "image/jpeg");
+            }
+            else
+            {
+                return null;
             }
         }
         

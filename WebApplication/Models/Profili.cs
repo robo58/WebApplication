@@ -7,6 +7,7 @@ namespace WebApplication.Models
     {
         public int IdProfila { get; set; }
         public int? IdZaposlenika { get; set; }
+
         public virtual Zaposlenici IdZaposlenikaNavigation { get; set; }
     }
 }

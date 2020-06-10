@@ -13,6 +13,7 @@ namespace WebApplication.Models
         public int IdModela { get; set; }
         public string Naziv { get; set; }
         public int? IdSpecifikacija { get; set; }
+        public string Tip { get; set; }
 
         public virtual Specifikacije IdSpecifikacijaNavigation { get; set; }
         public virtual ICollection<Vozila> Vozila { get; set; }
