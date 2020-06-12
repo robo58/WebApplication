@@ -1,6 +1,9 @@
 ﻿using System;
+using System.CodeDom.Compiler;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -78,14 +81,14 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Kategorije kategorija)
+        public async Task<IActionResult> Create(Kategorije kategorija)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _ctx.Add(kategorija);
-                    _ctx.SaveChanges();
+                    await _ctx.AddAsync(kategorija);
+                    await _ctx.SaveChangesAsync();
                     TempData[Constants.Message] = $"Kategorija {kategorija.Naziv} uspjesno dodana.*";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
@@ -198,5 +201,13 @@ namespace WebApplication.Controllers
             }
         }
         
+        [HttpGet]
+        public async Task<IActionResult> Show(int id)
+        {
+            var kategorija = await _ctx.Kategorije.FindAsync(id);
+            var usluge = await _ctx.Usluge.Where(d=>d.IdKategorije == kategorija.IdKategorije).ToListAsync();
+            ViewBag.Usluge = usluge;
+            return View(kategorija);
+        }
     }
 }

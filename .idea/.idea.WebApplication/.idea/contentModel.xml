@@ -137,6 +137,7 @@
             <e p="Create.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+            <e p="Show.cshtml" t="Include" />
           </e>
           <e p="Klijenti" t="Include">
             <e p="Create.cshtml" t="Include" />

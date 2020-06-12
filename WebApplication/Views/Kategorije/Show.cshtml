@@ -1,0 +1,18 @@
+﻿@model Kategorije
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <h1 >@Model.Naziv</h1>
+    
+    <div>
+        <select asp-items="ViewBag.Kategorije" class="form-control">
+            <option value="" disabled selected class="justify-content-center">Odaberi uslugu</option>
+            @foreach (var u in ViewBag.Usluge)
+            {
+                <option class="justify-content-center" value="@u.IdUsluge">@u.NazivUsluge</option>
+            }
+        </select>
+    </div>
+</div>

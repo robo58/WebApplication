@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
@@ -12,15 +14,29 @@ namespace WebApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly PI10Context _ctx;
+        private readonly AppSettings _appSettings;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger,PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot)
         {
             _logger = logger;
+            _ctx = ctx;
+            _appSettings = optionsSnapshot.Value;
+
         }
 
         public IActionResult Index()
         {
-            return View();
+            var kategorije = _ctx.Kategorije.AsNoTracking().ToList();
+            if (kategorije.Any())
+            {
+                return View(kategorije);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult Privacy()

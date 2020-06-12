@@ -172,7 +172,7 @@ namespace WebApplication.Controllers
                             int GetId()
                             {
                                 int i = 0;
-                                if (_ctx.SlikeVozila.Any())
+                                if (_ctx.Slike.Any())
                                 {
                                     i = _ctx.Slike.OrderBy(d=>d.IdSlike).Last().IdSlike + 1;
                                 }

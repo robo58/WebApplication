@@ -47,6 +47,9 @@ function SetDeleteAjax(selector, url, paramname) {
     });
 }
 
+function goToSite(url){
+    
+}
 
 //Svim elementima koji zadovoljavaju selector definirat će se ponašanje na klik na način
 //da se redak u kojem se nalazi element sakrije te se pozove url sa servera koji vrati novi redak 
