@@ -210,6 +210,7 @@
             <e p="ErrorMessageRow.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
             <e p="Row.cshtml" t="Include" />
+            <e p="Show.cshtml" t="Include" />
           </e>
           <e p="Vozila" t="Include">
             <e p="Create.cshtml" t="Include" />

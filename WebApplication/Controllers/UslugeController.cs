@@ -241,5 +241,12 @@ namespace WebApplication.Controllers
             }
         }
         
+        [HttpGet]
+        public async Task<IActionResult> Show(int id)
+        {
+            var usluga = await _ctx.Usluge.FindAsync(id);
+            return View(usluga);
+        }
+        
     }
 }
