@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Security.Policy;
@@ -120,7 +122,8 @@ namespace WebApplication.Controllers
                             VelicinaTankaULitrima = v.IdModelaNavigation.IdSpecifikacijaNavigation.VelicinaTankaULitrima
                         }
                     },
-                    NazivProizvodjaca = v.IdProizvodjacaNavigation.Naziv
+                    NazivProizvodjaca = v.IdProizvodjacaNavigation.Naziv,
+                    IdSlike = v.IdSlike
                 })
                 .FirstOrDefault();
 
@@ -155,10 +158,22 @@ namespace WebApplication.Controllers
             ViewBag.Modeli = new SelectList(modeli, nameof(Modeli.IdModela), nameof(Modeli.Naziv));
         }
 
+        private int GetId()
+        {
+            int id;
+            id = _ctx.Slike.Count();
+            if (id>0)
+            {
+                return id+1;
+            }
+            return 1;
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Vozila vozilo, IFormFile slika)
         {
+            int id = GetId();
             if (ModelState.IsValid)
             {
                 try
@@ -169,24 +184,15 @@ namespace WebApplication.Controllers
                         {
                             await slika.CopyToAsync(stream);
                             byte[] image = stream.ToArray();
-                            int GetId()
-                            {
-                                int i = 0;
-                                if (_ctx.Slike.Any())
-                                {
-                                    i = _ctx.Slike.OrderBy(d=>d.IdSlike).Last().IdSlike + 1;
-                                }
-                                return i;
-                            }
                             var slike = new Slike
                             {
-                                IdSlike = GetId(),
+                                IdSlike = id,
                                 SlikaBinary = image
                             };
                             _ctx.Add(slike);
-                            vozilo.IdSlike = slike.IdSlike;
                         }
                     }
+                    vozilo.IdSlike = id;
                     _ctx.Add(vozilo);
                     _ctx.SaveChanges();
                     TempData[Constants.Message] = $"vozilo uspjesno dodano.*";
@@ -245,7 +251,7 @@ namespace WebApplication.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Vozila vozilo, int page = 1, int sort = 1, bool ascending = true)
+        public async Task<IActionResult> Edit(Vozila vozilo,IFormFile slika, int page = 1, int sort = 1, bool ascending = true)
         {
             if (vozilo == null)
             {
@@ -257,13 +263,34 @@ namespace WebApplication.Controllers
                 return NotFound($"Neispravan id vozila: {vozilo?.IdVozila}");
             }
 
+
+            Vozila dbVozilo = _ctx.Vozila.Find(vozilo.IdVozila);
+            int id = GetId();
             PrepareDropDownLists();
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _ctx.Update(vozilo);
-                    _ctx.SaveChanges();
+                    dbVozilo.Cijena = vozilo.Cijena;
+                    dbVozilo.Dostupno = vozilo.Dostupno;
+                    dbVozilo.IdModela = vozilo.IdModela;
+                    dbVozilo.IdProizvodjaca = vozilo.IdProizvodjaca;
+                    if (slika != null && slika.Length > 0)
+                    {
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            await slika.CopyToAsync(stream);
+                            byte[] image = stream.ToArray();
+                            var slike = new Slike
+                            {
+                                IdSlike = id,
+                                SlikaBinary = image
+                            };
+                           await _ctx.AddAsync(slike);
+                           dbVozilo.IdSlike = id;
+                        }
+                    }
+                    await _ctx.SaveChangesAsync();
 
                     TempData[Constants.Message] = "vozilo ažurirano.";
                     TempData[Constants.ErrorOccurred] = false;

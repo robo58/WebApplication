@@ -25,7 +25,10 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<AppUser, AppRole>(options => { options.User.RequireUniqueEmail = true; })
+                .AddEntityFrameworkStores<PI10Context>();
             services.AddControllersWithViews();
+            services.AddRazorPages();
             
             services.AddDbContext<PI10Context>(options =>
             {
@@ -34,7 +37,6 @@ namespace WebApplication
 
             var appSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSection);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,12 +59,14 @@ namespace WebApplication
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

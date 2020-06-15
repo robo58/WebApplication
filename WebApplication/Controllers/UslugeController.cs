@@ -245,6 +245,33 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> Show(int id)
         {
             var usluga = await _ctx.Usluge.FindAsync(id);
+            var vozila = await _ctx.Vozila.Where(d => d.IdModelaNavigation.Tip == usluga.NazivUsluge)
+                .Select(v=> new VozilosViewModel
+                {
+                    IdVozila = v.IdVozila,
+                    Cijena = v.Cijena,
+                    Dostupno = v.Dostupno,
+                    Model = new ModelViewModel
+                    {
+                        IdModela = v.IdModelaNavigation.IdModela,
+                        Naziv = v.IdModelaNavigation.Naziv,
+                        Specifikacija = new SpecifikacijaViewModel
+                        {
+                            IdSpecifikacija = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdSpecifikacija,
+                            KonjskeSnage = v.IdModelaNavigation.IdSpecifikacijaNavigation.KonjskeSnage,
+                            NazivBoje = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdBojeNavigation.Naziv,
+                            NazivDodatneOpreme = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdDodatneOpremeNavigation.ToString(),
+                            NazivMjenjaca = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdMjenjacaNavigation.Naziv,
+                            NazivVrsteGoriva = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdVrsteGorivaNavigation.Naziv,
+                            Potrosnja = v.IdModelaNavigation.IdSpecifikacijaNavigation.Potrosnja,
+                            VelicinaTankaULitrima = v.IdModelaNavigation.IdSpecifikacijaNavigation.VelicinaTankaULitrima
+                        }
+                    },
+                    NazivProizvodjaca = v.IdProizvodjacaNavigation.Naziv,
+                    IdSlike = v.IdSlike
+                })
+                .ToListAsync();
+            ViewBag.Vozila = vozila;
             return View(usluga);
         }
         

@@ -12,6 +12,8 @@ namespace WebApplication.ViewModels
         public ModelViewModel Model { get; set; }
         public int Cijena { get; set; }
         public bool Dostupno { get; set; }
+        
+        public int? IdSlike { get; set; }
 
     }
 }

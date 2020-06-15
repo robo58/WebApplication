@@ -5,7 +5,7 @@
 
 <div class="container">
     <h1 >Pronađimo savršen auto za vas</h1>
-    
+    <br/><br/>
     <div>
         <form asp-controller="Kategorije" asp-action="Show" method="get">
             <select name="id" asp-items="ViewBag.Kategorije" class="form-control">
@@ -15,6 +15,7 @@
                     <option class="justify-content-center" value="@kat.IdKategorije">@kat.Naziv</option>
                 }
             </select>
+            <br/>
             <button type="submit" class="btn btn-primary btn-block">Go</button>
         </form>
     </div>

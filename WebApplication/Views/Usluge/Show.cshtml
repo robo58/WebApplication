@@ -1,4 +1,5 @@
-﻿@model Usluge
+﻿@using WebApplication.ViewModels
+@model Usluge
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,6 +8,12 @@
     <h1 >@Model.NazivUsluge</h1>
     
     <div>
-
+        @foreach (VozilosViewModel v in ViewBag.Vozila)
+        {
+            <div class="justify-content-center">
+                <h2 class="text-center">@v.NazivProizvodjaca @v.Model.Naziv</h2>
+                <img src="@Url.Action("GetImage", "Vozila", new { id = @v.IdSlike })"  class="img-fluid mx-auto d-block" />
+            </div>
+        }
     </div>
 </div>

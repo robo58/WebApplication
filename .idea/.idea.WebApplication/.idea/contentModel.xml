@@ -14,6 +14,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Constants.cs" t="Include" />
         <e p="Controllers" t="Include">
+          <e p="AccountController.cs" t="Include" />
           <e p="BojeController.cs" t="Include" />
           <e p="CertifikatiController.cs" t="Include" />
           <e p="DodatnaOpremaController.cs" t="Include" />
@@ -34,7 +35,14 @@
           <e p="ZahtjevController.cs" t="Include" />
           <e p="ZaposleniciController.cs" t="Include" />
         </e>
+        <e p="Migrations" t="Include">
+          <e p="20200615140941_CreateIdentitySchema.cs" t="Include" />
+          <e p="20200615140941_CreateIdentitySchema.Designer.cs" t="Include" />
+          <e p="PI10ContextModelSnapshot.cs" t="Include" />
+        </e>
         <e p="Models" t="Include">
+          <e p="AppRole.cs" t="Include" />
+          <e p="AppUser.cs" t="Include" />
           <e p="Boje.cs" t="Include" />
           <e p="Certifikati.cs" t="Include" />
           <e p="DodatnaOprema.cs" t="Include" />
@@ -112,6 +120,10 @@
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Account" t="Include">
+            <e p="Login.cshtml" t="Include" />
+            <e p="Register.cshtml" t="Include" />
+          </e>
           <e p="Boje" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Edit.cshtml" t="Include" />

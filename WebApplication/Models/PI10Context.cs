@@ -1,15 +1,16 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace WebApplication.Models
 {
-    public partial class PI10Context : DbContext
+    public partial class PI10Context : IdentityDbContext<AppUser,AppRole,int>
     {
         public PI10Context()
         {
         }
-
+        
         public PI10Context(DbContextOptions<PI10Context> options)
             : base(options)
         {
@@ -51,9 +52,10 @@ namespace WebApplication.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Boje>(entity =>
             {
-                entity.HasKey(x => x.IdBoje)
+                entity.HasKey(e => e.IdBoje)
                     .HasName("PK__boje__DAD8CDB485A69935");
 
                 entity.ToTable("boje");
@@ -70,7 +72,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Certifikati>(entity =>
             {
-                entity.HasKey(x => x.IdCertifikata)
+                entity.HasKey(e => e.IdCertifikata)
                     .HasName("PK__certifik__CC4F424D8EF4C127");
 
                 entity.ToTable("certifikati");
@@ -87,7 +89,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<DodatnaOprema>(entity =>
             {
-                entity.HasKey(x => x.IdDodatneOpreme)
+                entity.HasKey(e => e.IdDodatneOpreme)
                     .HasName("PK__dodatna___2B2D8F63A44682FE");
 
                 entity.ToTable("dodatna_oprema");
@@ -105,7 +107,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Kategorije>(entity =>
             {
-                entity.HasKey(x => x.IdKategorije)
+                entity.HasKey(e => e.IdKategorije)
                     .HasName("PK__kategori__A086CBE6E4C5315C");
 
                 entity.ToTable("kategorije");
@@ -122,7 +124,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Klijenti>(entity =>
             {
-                entity.HasKey(x => x.IdKlijenta)
+                entity.HasKey(e => e.IdKlijenta)
                     .HasName("PK__klijenti__8C829559DC3B94CF");
 
                 entity.ToTable("klijenti");
@@ -137,18 +139,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdOsobeNavigation)
                     .WithMany(p => p.Klijenti)
-                    .HasForeignKey(x => x.IdOsobe)
+                    .HasForeignKey(d => d.IdOsobe)
                     .HasConstraintName("FK__klijenti__id_oso__3C69FB99");
 
                 entity.HasOne(d => d.IdTvrtkeNavigation)
                     .WithMany(p => p.Klijenti)
-                    .HasForeignKey(x => x.IdTvrtke)
+                    .HasForeignKey(d => d.IdTvrtke)
                     .HasConstraintName("FK__klijenti__id_tvr__52593CB8");
             });
 
             modelBuilder.Entity<Mjenjaci>(entity =>
             {
-                entity.HasKey(x => x.IdMjenjaca)
+                entity.HasKey(e => e.IdMjenjaca)
                     .HasName("PK__mjenjaci__BFC87F1CE4A2442E");
 
                 entity.ToTable("mjenjaci");
@@ -165,7 +167,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Modeli>(entity =>
             {
-                entity.HasKey(x => x.IdModela)
+                entity.HasKey(e => e.IdModela)
                     .HasName("PK__modeli__B3BFCFE3214C1AC6");
 
                 entity.ToTable("modeli");
@@ -188,13 +190,13 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdSpecifikacijaNavigation)
                     .WithMany(p => p.Modeli)
-                    .HasForeignKey(x => x.IdSpecifikacija)
+                    .HasForeignKey(d => d.IdSpecifikacija)
                     .HasConstraintName("FK__modeli__id_speci__4222D4EF");
             });
 
             modelBuilder.Entity<Odjeli>(entity =>
             {
-                entity.HasKey(x => x.IdOdjela)
+                entity.HasKey(e => e.IdOdjela)
                     .HasName("PK__odjeli__AC670D526E13565D");
 
                 entity.ToTable("odjeli");
@@ -211,7 +213,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Osobe>(entity =>
             {
-                entity.HasKey(x => x.IdOsobe)
+                entity.HasKey(e => e.IdOsobe)
                     .HasName("PK__osobe__D10DBF755469F76F");
 
                 entity.ToTable("osobe");
@@ -237,7 +239,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Ponuda>(entity =>
             {
-                entity.HasKey(x => x.IdPonude)
+                entity.HasKey(e => e.IdPonude)
                     .HasName("PK__ponuda__76299DD788D33406");
 
                 entity.ToTable("ponuda");
@@ -254,13 +256,13 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdZahtjevaNavigation)
                     .WithMany(p => p.Ponuda)
-                    .HasForeignKey(x => x.IdZahtjeva)
+                    .HasForeignKey(d => d.IdZahtjeva)
                     .HasConstraintName("FK__ponuda__id_zahtj__4E88ABD4");
             });
 
             modelBuilder.Entity<PonudaVozac>(entity =>
             {
-                entity.HasKey(x => x.IdPv)
+                entity.HasKey(e => e.IdPv)
                     .HasName("PK__ponuda_v__0148A34A5E511BA4");
 
                 entity.ToTable("ponuda_vozac");
@@ -275,18 +277,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdPonudeNavigation)
                     .WithMany(p => p.PonudaVozac)
-                    .HasForeignKey(x => x.IdPonude)
+                    .HasForeignKey(d => d.IdPonude)
                     .HasConstraintName("FK__ponuda_vo__id_po__49C3F6B7");
 
                 entity.HasOne(d => d.IdVozacaNavigation)
                     .WithMany(p => p.PonudaVozac)
-                    .HasForeignKey(x => x.IdVozaca)
+                    .HasForeignKey(d => d.IdVozaca)
                     .HasConstraintName("FK__ponuda_vo__id_vo__4BAC3F29");
             });
 
             modelBuilder.Entity<PonudaVozilo>(entity =>
             {
-                entity.HasKey(x => x.IdPvozilo)
+                entity.HasKey(e => e.IdPvozilo)
                     .HasName("PK__ponuda_v__0B5F9A98A1E05912");
 
                 entity.ToTable("ponuda_vozilo");
@@ -301,18 +303,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdPonudeNavigation)
                     .WithMany(p => p.PonudaVozilo)
-                    .HasForeignKey(x => x.IdPonude)
+                    .HasForeignKey(d => d.IdPonude)
                     .HasConstraintName("FK__ponuda_vo__id_po__4AB81AF0");
 
                 entity.HasOne(d => d.IdVozilaNavigation)
                     .WithMany(p => p.PonudaVozilo)
-                    .HasForeignKey(x => x.IdVozila)
+                    .HasForeignKey(d => d.IdVozila)
                     .HasConstraintName("FK__ponuda_vo__id_vo__4CA06362");
             });
 
             modelBuilder.Entity<Profili>(entity =>
             {
-                entity.HasKey(x => x.IdProfila)
+                entity.HasKey(e => e.IdProfila)
                     .HasName("PK__profili__0981A572ACE5569C");
 
                 entity.ToTable("profili");
@@ -325,13 +327,13 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdZaposlenikaNavigation)
                     .WithMany(p => p.Profili)
-                    .HasForeignKey(x => x.IdZaposlenika)
+                    .HasForeignKey(d => d.IdZaposlenika)
                     .HasConstraintName("FK__profili__id_zapo__3F466844");
             });
 
             modelBuilder.Entity<Proizvodjaci>(entity =>
             {
-                entity.HasKey(x => x.IdProizvodjaca)
+                entity.HasKey(e => e.IdProizvodjaca)
                     .HasName("PK__proizvod__06B284B0219FEE0D");
 
                 entity.ToTable("proizvodjaci");
@@ -348,7 +350,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Slike>(entity =>
             {
-                entity.HasKey(x => x.IdSlike)
+                entity.HasKey(e => e.IdSlike)
                     .HasName("PK__slike__FF613FFEF2255A92");
 
                 entity.ToTable("slike");
@@ -362,7 +364,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<SlikeVozila>(entity =>
             {
-                entity.HasKey(x => x.IdSv)
+                entity.HasKey(e => e.IdSv)
                     .HasName("PK__slike_vo__014858E9B2CB527B");
 
                 entity.ToTable("slike_vozila");
@@ -377,18 +379,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdSlikeNavigation)
                     .WithMany(p => p.SlikeVozila)
-                    .HasForeignKey(x => x.IdSlike)
+                    .HasForeignKey(d => d.IdSlike)
                     .HasConstraintName("FK__slike_voz__id_sl__5070F446");
 
                 entity.HasOne(d => d.IdVozilaNavigation)
                     .WithMany(p => p.SlikeVozila)
-                    .HasForeignKey(x => x.IdVozila)
+                    .HasForeignKey(d => d.IdVozila)
                     .HasConstraintName("FK__slike_voz__id_vo__5165187F");
             });
 
             modelBuilder.Entity<Specifikacije>(entity =>
             {
-                entity.HasKey(x => x.IdSpecifikacija)
+                entity.HasKey(e => e.IdSpecifikacija)
                     .HasName("PK__specifik__0931200E56E054F7");
 
                 entity.ToTable("specifikacije");
@@ -413,28 +415,28 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdBojeNavigation)
                     .WithMany(p => p.Specifikacije)
-                    .HasForeignKey(x => x.IdBoje)
+                    .HasForeignKey(d => d.IdBoje)
                     .HasConstraintName("FK__specifika__id_bo__440B1D61");
 
                 entity.HasOne(d => d.IdDodatneOpremeNavigation)
                     .WithMany(p => p.Specifikacije)
-                    .HasForeignKey(x => x.IdDodatneOpreme)
+                    .HasForeignKey(d => d.IdDodatneOpreme)
                     .HasConstraintName("FK__specifika__id_do__44FF419A");
 
                 entity.HasOne(d => d.IdMjenjacaNavigation)
                     .WithMany(p => p.Specifikacije)
-                    .HasForeignKey(x => x.IdMjenjaca)
+                    .HasForeignKey(d => d.IdMjenjaca)
                     .HasConstraintName("FK__specifika__id_mj__4316F928");
 
                 entity.HasOne(d => d.IdVrsteGorivaNavigation)
                     .WithMany(p => p.Specifikacije)
-                    .HasForeignKey(x => x.IdVrsteGoriva)
+                    .HasForeignKey(d => d.IdVrsteGoriva)
                     .HasConstraintName("FK__specifika__id_vr__48CFD27E");
             });
 
             modelBuilder.Entity<Tvrtke>(entity =>
             {
-                entity.HasKey(x => x.IdTvrtke)
+                entity.HasKey(e => e.IdTvrtke)
                     .HasName("PK__tvrtke__260D51ABEA507663");
 
                 entity.ToTable("tvrtke");
@@ -455,7 +457,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Usluge>(entity =>
             {
-                entity.HasKey(x => x.IdUsluge)
+                entity.HasKey(e => e.IdUsluge)
                     .HasName("PK__usluge__9FD22D675869A3A2");
 
                 entity.ToTable("usluge");
@@ -473,18 +475,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdKategorijeNavigation)
                     .WithMany(p => p.Usluge)
-                    .HasForeignKey(x => x.IdKategorije)
+                    .HasForeignKey(d => d.IdKategorije)
                     .HasConstraintName("FK__usluge__id_kateg__403A8C7D");
             });
 
             modelBuilder.Entity<Vozila>(entity =>
             {
-                entity.HasKey(x => x.IdVozila)
+                entity.HasKey(e => e.IdVozila)
                     .HasName("PK__vozila__899BBC8CBC16EA2E");
 
                 entity.ToTable("vozila");
 
-                entity.HasIndex(x => x.IdVozila)
+                entity.HasIndex(e => e.IdVozila)
                     .HasName("vozila_id_vozila_index");
 
                 entity.Property(e => e.IdVozila)
@@ -503,24 +505,24 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdModelaNavigation)
                     .WithMany(p => p.Vozila)
-                    .HasForeignKey(x => x.IdModela)
+                    .HasForeignKey(d => d.IdModela)
                     .HasConstraintName("FK__vozila__id_model__412EB0B6");
 
                 entity.HasOne(d => d.IdProizvodjacaNavigation)
                     .WithMany(p => p.Vozila)
-                    .HasForeignKey(x => x.IdProizvodjaca)
+                    .HasForeignKey(d => d.IdProizvodjaca)
                     .HasConstraintName("FK__vozila__id_proiz__45F365D3");
 
                 entity.HasOne(d => d.IdSlikeNavigation)
                     .WithMany(p => p.Vozila)
-                    .HasForeignKey(x => x.IdSlike)
+                    .HasForeignKey(d => d.IdSlike)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("vozila_slike_id_slike_fk");
             });
 
             modelBuilder.Entity<VrsteGoriva>(entity =>
             {
-                entity.HasKey(x => x.IdVrsteGoriva)
+                entity.HasKey(e => e.IdVrsteGoriva)
                     .HasName("PK__vrste_go__A0C0C22749FAB4D8");
 
                 entity.ToTable("vrste_goriva");
@@ -537,7 +539,7 @@ namespace WebApplication.Models
 
             modelBuilder.Entity<Zahtjev>(entity =>
             {
-                entity.HasKey(x => x.IdZahtjeva)
+                entity.HasKey(e => e.IdZahtjeva)
                     .HasName("PK__zahtjev__657E646F80D3C4F0");
 
                 entity.ToTable("zahtjev");
@@ -564,18 +566,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdKlijentaNavigation)
                     .WithMany(p => p.Zahtjev)
-                    .HasForeignKey(x => x.IdKlijenta)
+                    .HasForeignKey(d => d.IdKlijenta)
                     .HasConstraintName("FK__zahtjev__id_klij__4D94879B");
 
                 entity.HasOne(d => d.IdUslugeNavigation)
                     .WithMany(p => p.Zahtjev)
-                    .HasForeignKey(x => x.IdUsluge)
+                    .HasForeignKey(d => d.IdUsluge)
                     .HasConstraintName("FK__zahtjev__id_uslu__4F7CD00D");
             });
 
             modelBuilder.Entity<Zaposlenici>(entity =>
             {
-                entity.HasKey(x => x.IdZaposlenika)
+                entity.HasKey(e => e.IdZaposlenika)
                     .HasName("PK__zaposlen__FBAF864B035D4EF8");
 
                 entity.ToTable("zaposlenici");
@@ -592,18 +594,18 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdOdjelaNavigation)
                     .WithMany(p => p.Zaposlenici)
-                    .HasForeignKey(x => x.IdOdjela)
+                    .HasForeignKey(d => d.IdOdjela)
                     .HasConstraintName("FK__zaposleni__id_od__3E52440B");
 
                 entity.HasOne(d => d.IdOsobeNavigation)
                     .WithMany(p => p.Zaposlenici)
-                    .HasForeignKey(x => x.IdOsobe)
+                    .HasForeignKey(d => d.IdOsobe)
                     .HasConstraintName("FK__zaposleni__id_os__3D5E1FD2");
             });
 
             modelBuilder.Entity<ZaposleniciCertifikati>(entity =>
             {
-                entity.HasKey(x => x.IdZc)
+                entity.HasKey(e => e.IdZc)
                     .HasName("PK__zaposlen__01481031A2DB8977");
 
                 entity.ToTable("zaposlenici_certifikati");
@@ -618,12 +620,12 @@ namespace WebApplication.Models
 
                 entity.HasOne(d => d.IdCertifikataNavigation)
                     .WithMany(p => p.ZaposleniciCertifikati)
-                    .HasForeignKey(x => x.IdCertifikata)
+                    .HasForeignKey(d => d.IdCertifikata)
                     .HasConstraintName("FK__zaposleni__id_ce__47DBAE45");
 
                 entity.HasOne(d => d.IdZaposlenikaNavigation)
                     .WithMany(p => p.ZaposleniciCertifikati)
-                    .HasForeignKey(x => x.IdZaposlenika)
+                    .HasForeignKey(d => d.IdZaposlenika)
                     .HasConstraintName("FK__zaposleni__id_za__46E78A0C");
             });
 
