@@ -4,29 +4,30 @@
             Pocetna Stranica
         </a>
     </li>   
-        <li class="nav-item">
             @if (User.Identity.IsAuthenticated)
             {
-                <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Logout">@User.Identity.Name, Logout</a>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Logout">@User.Identity.Name, Logout</a>
+                </li>
             }
             else
             {
-                <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Login">Login</a>
-                <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Register">Register</a>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
             }
-        </li>    
-    <li class="nav-item">
+            @if (User.IsInRole("admin"))
+            {
+                    <li class="nav-item">
         <a class="nav-link
            @(ViewBag.Controller == "Boje" ? "active" : "")" asp-action="Index" asp-controller="Boje">
              Boje
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Certifikati" ? "active" : "")" asp-action="Index" asp-controller="Certifikati">
-            Certifikati
-        </a>
-    </li>
-    <li class="nav-item">
+                <li class="nav-item">
         <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "DodatnaOprema" ? "active" : "")" asp-action="Index" asp-controller="DodatnaOprema">
             Dodatna oprema
         </a>
@@ -53,11 +54,6 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Osobe" ? "active" : "")" asp-action="Index" asp-controller="Osobe">
-            Osobe
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "VrsteGoriva" ? "active" : "")" asp-action="Index" asp-controller="VrsteGoriva">
             Vrste goriva
         </a>
@@ -65,16 +61,6 @@
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Specifikacije" ? "active" : "")" asp-action="Index" asp-controller="Specifikacije">
             Specifikacije
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Tvrtke" ? "active" : "")" asp-action="Index" asp-controller="Tvrtke">
-            Tvrtke
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Klijenti" ? "active" : "")" asp-action="Index" asp-controller="Klijenti">
-            Klijenti
         </a>
     </li>
     <li class="nav-item">
@@ -88,11 +74,6 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Profili" ? "active" : "")" asp-action="Index" asp-controller="Profili">
-            Profili
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Modeli" ? "active" : "")" asp-action="Index" asp-controller="Modeli">
             Modeli
         </a>
@@ -102,9 +83,11 @@
             Vozila
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Zahtjev" ? "active" : "")" asp-action="Index" asp-controller="Zahtjev">
-            Zahtjevi
-        </a>
-    </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Zahtjev" ? "active" : "")" asp-action="Index" asp-controller="Zahtjev">
+                        Zahtjevi
+                    </a>
+                </li>
+                
+            }
 </ul>

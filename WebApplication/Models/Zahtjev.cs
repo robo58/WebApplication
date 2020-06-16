@@ -18,7 +18,7 @@ namespace WebApplication.Models
         public DateTime? DatumDo { get; set; }
         public int? BrojVozila { get; set; }
 
-        public virtual Klijenti IdKlijentaNavigation { get; set; }
+        public virtual AspNetUsers IdKlijentaNavigation { get; set; }
         public virtual Usluge IdUslugeNavigation { get; set; }
         public virtual ICollection<Ponuda> Ponuda { get; set; }
     }

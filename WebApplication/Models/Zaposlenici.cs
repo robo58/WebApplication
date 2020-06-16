@@ -8,8 +8,6 @@ namespace WebApplication.Models
         public Zaposlenici()
         {
             PonudaVozac = new HashSet<PonudaVozac>();
-            Profili = new HashSet<Profili>();
-            ZaposleniciCertifikati = new HashSet<ZaposleniciCertifikati>();
         }
 
         public int IdZaposlenika { get; set; }
@@ -18,9 +16,7 @@ namespace WebApplication.Models
         public int? RadniStaz { get; set; }
 
         public virtual Odjeli IdOdjelaNavigation { get; set; }
-        public virtual Osobe IdOsobeNavigation { get; set; }
+        public virtual AspNetUsers IdOsobeNavigation { get; set; }
         public virtual ICollection<PonudaVozac> PonudaVozac { get; set; }
-        public virtual ICollection<Profili> Profili { get; set; }
-        public virtual ICollection<ZaposleniciCertifikati> ZaposleniciCertifikati { get; set; }
     }
 }

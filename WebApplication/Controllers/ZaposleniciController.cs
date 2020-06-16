@@ -55,7 +55,7 @@ namespace WebApplication.Controllers
                     orderSelector = b => b.IdOdjelaNavigation.Naziv;
                     break;
                 case 3:
-                    orderSelector = b => b.IdOsobeNavigation.Ime;
+                    orderSelector = b => b.IdOsobeNavigation.FirstName;
                     break;
                 case 4:
                     orderSelector = b => b.RadniStaz;
@@ -72,7 +72,7 @@ namespace WebApplication.Controllers
                 {
                     IdZaposlenika = s.IdZaposlenika,
                     NazivOdjela = s.IdOdjelaNavigation.Naziv,
-                    ImeOsobe = s.IdOsobeNavigation.Ime + " " + s.IdOsobeNavigation.Prezime,
+                    ImeOsobe = s.IdOsobeNavigation.FirstName + " " + s.IdOsobeNavigation.LastName,
                     RadniStaz = s.RadniStaz
                 })
                 .Skip((page - 1) * pagesize)
@@ -98,11 +98,11 @@ namespace WebApplication.Controllers
         {
             var odjeli = _ctx.Odjeli.AsNoTracking().OrderBy(d => d.Naziv)
                 .Select(d => new {d.Naziv, d.IdOdjela}).ToList();
-            var osobe = _ctx.Osobe.AsNoTracking().OrderBy(d => d.Ime)
-                .Select(d => new {ImePrezime = (d.Ime + " " + d.Prezime), d.IdOsobe}).ToList();
+            var osobe = _ctx.AspNetUsers.AsNoTracking().OrderBy(d => d.FirstName)
+                .Select(d => new {ImePrezime = (d.FirstName + " " + d.LastName), d.Id}).ToList();
 
             ViewBag.Odjeli = new SelectList(odjeli, nameof(Odjeli.IdOdjela), nameof(Odjeli.Naziv));
-            ViewBag.Osobe = new SelectList(osobe, nameof(Osobe.IdOsobe), "ImePrezime");
+            ViewBag.Osobe = new SelectList(osobe, nameof(AspNetUsers.Id), "ImePrezime");
         }
 
         [HttpPost]
@@ -199,7 +199,7 @@ namespace WebApplication.Controllers
                 {
                     IdZaposlenika = s.IdZaposlenika,
                     NazivOdjela = s.IdOdjelaNavigation.Naziv,
-                    ImeOsobe = s.IdOsobeNavigation.Ime + " " + s.IdOsobeNavigation.Prezime,
+                    ImeOsobe = s.IdOsobeNavigation.FirstName + " " + s.IdOsobeNavigation.LastName,
                     RadniStaz = s.RadniStaz
                 })
                 .SingleOrDefault();

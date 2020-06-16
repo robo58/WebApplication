@@ -4,9 +4,9 @@ using WebApplication.Models;
 
 namespace WebApplication.ViewModels
 {
-    public class ProfiliViewModel
+    public class ZaposleniciViewModel
     {
-        public IEnumerable<ProfilViewModel> Profili { get; set; }
+        public IEnumerable<ZaposlenikViewModel> Zaposlenici { get; set; }
         public PagingInfo PagingInfo { get; set; }
     }
 }

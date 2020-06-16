@@ -81,7 +81,7 @@ namespace WebApplication.Controllers
                 {
                     IdZahtjeva = s.IdZahtjeva,
                     NazivUsluge = s.IdUslugeNavigation.NazivUsluge,
-                    NazivTvrtke = s.IdKlijentaNavigation.IdTvrtkeNavigation.Naziv,
+                    ImePrezime = s.IdKlijentaNavigation.FirstName + " " + s.IdKlijentaNavigation.LastName,
                     DatumOd = s.DatumOd,
                     DatumDo = s.DatumDo,
                     BrojVozila = s.BrojVozila
@@ -109,11 +109,11 @@ namespace WebApplication.Controllers
         {
             var usluge = _ctx.Usluge.AsNoTracking().OrderBy(d => d.NazivUsluge)
                 .Select(d => new {d.NazivUsluge, d.IdUsluge}).ToList();
-            var klijenti = _ctx.Klijenti.AsNoTracking().OrderBy(d => d.IdKlijenta)
-                .Select(d => new {NazivTvrtke=d.IdTvrtkeNavigation.Naziv, d.IdKlijenta}).ToList();
+            var klijenti = _ctx.AspNetUsers.AsNoTracking().OrderBy(d => d.Id)
+                .Select(d => new {ImePrezime=d.FirstName + " " + d.LastName, d.Id}).ToList();
 
             ViewBag.Usluge = new SelectList(usluge, nameof(Usluge.IdUsluge), nameof(Usluge.NazivUsluge));
-            ViewBag.Klijenti = new SelectList(klijenti, nameof(Klijenti.IdKlijenta), "NazivTvrtke");
+            ViewBag.Klijenti = new SelectList(klijenti, nameof(AspNetUsers.Id), "ImePrezime");
         }
 
         [HttpPost]
@@ -210,7 +210,7 @@ namespace WebApplication.Controllers
                 {
                     IdZahtjeva = s.IdZahtjeva,
                     NazivUsluge = s.IdUslugeNavigation.NazivUsluge,
-                    NazivTvrtke = s.IdKlijentaNavigation.IdTvrtkeNavigation.Naziv,
+                    ImePrezime = s.IdKlijentaNavigation.FirstName + " " +s.IdKlijentaNavigation.LastName,
                     DatumOd = s.DatumOd,
                     DatumDo = s.DatumDo,
                     BrojVozila = s.BrojVozila
