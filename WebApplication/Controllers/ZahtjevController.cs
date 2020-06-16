@@ -109,11 +109,11 @@ namespace WebApplication.Controllers
         {
             var usluge = _ctx.Usluge.AsNoTracking().OrderBy(d => d.NazivUsluge)
                 .Select(d => new {d.NazivUsluge, d.IdUsluge}).ToList();
-            var klijenti = _ctx.AspNetUsers.AsNoTracking().OrderBy(d => d.Id)
+            var klijenti = _ctx.Users.AsNoTracking().OrderBy(d => d.Id)
                 .Select(d => new {ImePrezime=d.FirstName + " " + d.LastName, d.Id}).ToList();
 
             ViewBag.Usluge = new SelectList(usluge, nameof(Usluge.IdUsluge), nameof(Usluge.NazivUsluge));
-            ViewBag.Klijenti = new SelectList(klijenti, nameof(AspNetUsers.Id), "ImePrezime");
+            ViewBag.Klijenti = new SelectList(klijenti, nameof(AppUser.Id), "ImePrezime");
         }
 
         [HttpPost]

@@ -16,7 +16,7 @@ namespace WebApplication.Models
         public int? RadniStaz { get; set; }
 
         public virtual Odjeli IdOdjelaNavigation { get; set; }
-        public virtual AspNetUsers IdOsobeNavigation { get; set; }
+        public virtual AppUser IdOsobeNavigation { get; set; }
         public virtual ICollection<PonudaVozac> PonudaVozac { get; set; }
     }
 }

@@ -26,10 +26,10 @@ namespace WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<AppUser, AppRole>(options => { options.User.RequireUniqueEmail = true; })
-                .AddEntityFrameworkStores<PI10Context>();
+                .AddEntityFrameworkStores<PI10Context>().AddRoles<AppRole>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            
+
             services.AddDbContext<PI10Context>(options =>
             {
                 options.UseSqlServer("Server=rppp.fer.hr,3000;Database=PI-10;User Id=pi10;Password=M-A-N-G.O;MultipleActiveResultSets=true");
@@ -58,8 +58,8 @@ namespace WebApplication
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

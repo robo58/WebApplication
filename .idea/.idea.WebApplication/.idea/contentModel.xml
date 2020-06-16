@@ -39,13 +39,6 @@
         <e p="Models" t="Include">
           <e p="AppRole.cs" t="Include" />
           <e p="AppUser.cs" t="Include" />
-          <e p="AspNetRoleClaims.cs" t="Include" />
-          <e p="AspNetRoles.cs" t="Include" />
-          <e p="AspNetUserClaims.cs" t="Include" />
-          <e p="AspNetUserLogins.cs" t="Include" />
-          <e p="AspNetUserRoles.cs" t="Include" />
-          <e p="AspNetUsers.cs" t="Include" />
-          <e p="AspNetUserTokens.cs" t="Include" />
           <e p="Boje.cs" t="Include" />
           <e p="DodatnaOprema.cs" t="Include" />
           <e p="ErrorViewModel.cs" t="Include" />

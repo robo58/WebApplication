@@ -98,11 +98,11 @@ namespace WebApplication.Controllers
         {
             var odjeli = _ctx.Odjeli.AsNoTracking().OrderBy(d => d.Naziv)
                 .Select(d => new {d.Naziv, d.IdOdjela}).ToList();
-            var osobe = _ctx.AspNetUsers.AsNoTracking().OrderBy(d => d.FirstName)
+            var osobe = _ctx.Users.AsNoTracking().OrderBy(d => d.FirstName)
                 .Select(d => new {ImePrezime = (d.FirstName + " " + d.LastName), d.Id}).ToList();
 
             ViewBag.Odjeli = new SelectList(odjeli, nameof(Odjeli.IdOdjela), nameof(Odjeli.Naziv));
-            ViewBag.Osobe = new SelectList(osobe, nameof(AspNetUsers.Id), "ImePrezime");
+            ViewBag.Osobe = new SelectList(osobe, nameof(AppUser.Id), "ImePrezime");
         }
 
         [HttpPost]
