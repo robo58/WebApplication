@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
+    [Authorize]
     public class KategorijeController : Controller
     {
         private readonly PI10Context _ctx;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
+    [Authorize]
     public class MjenjaciController : Controller
     {
         private readonly PI10Context _ctx;
