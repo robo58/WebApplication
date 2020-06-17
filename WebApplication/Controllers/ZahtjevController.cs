@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -20,11 +23,13 @@ namespace WebApplication.Controllers
     {
         private readonly PI10Context _ctx;
         private readonly AppSettings _appSettings;
+        private UserManager<AppUser> UserMgr;
 
-        public ZahtjevController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot)
+        public ZahtjevController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot, UserManager<AppUser> userManager)
         {
             _ctx = ctx;
             _appSettings = optionsSnapshot.Value;
+            UserMgr = userManager;
         }
         
         public IActionResult Index(int page = 1, int sort = 1, bool ascending = true)
@@ -263,6 +268,56 @@ namespace WebApplication.Controllers
                 }
             }
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Show(int IdUsluge,int[] idVozila)
+        {
+            //var vozila = await _ctx.Vozila.Where(d => idVozila.Contains(d.IdVozila)).ToListAsync();
+            ViewBag.IdUsluge = IdUsluge;
+            ViewBag.IdVozila = idVozila;
+            return View();
+        }
+
+        public void DodajVozila(int idZahtjeva, int[] idVozila)
+        {
+            foreach (var id in idVozila)
+            {
+                ZahtjevVozila zahtjevVozila = new ZahtjevVozila();
+                zahtjevVozila.IdVozila = id;
+                zahtjevVozila.IdZahtjeva = idZahtjeva;
+                _ctx.Add(zahtjevVozila);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateRequest(int IdUsluge,int[] idVozila,ClaimsPrincipal user, DateTime? DatumOd, DateTime? DatumDo)
+        {
+            string username = User.FindFirstValue(ClaimTypes.Name);
+            var klijent = await UserMgr.FindByNameAsync(username);
+            
+            Zahtjev zahtjev = new Zahtjev();
+            zahtjev.IdZahtjeva = await _ctx.Zahtjev.CountAsync() + 1;
+            zahtjev.IdUsluge = IdUsluge;
+            zahtjev.IdKlijenta = klijent.Id;
+            zahtjev.DatumOd = DatumOd;
+            zahtjev.DatumDo = DatumDo;
+            zahtjev.BrojVozila = idVozila.Length;
+            DodajVozila(zahtjev.IdZahtjeva,idVozila);
+            try
+            {
+                _ctx.Add(zahtjev);
+                _ctx.SaveChanges();
+                TempData[Constants.Message] = $"zahtjev uspjesno dodano.*";
+                TempData[Constants.ErrorOccurred] = false;
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                PrepareDropDownLists();
+                return RedirectToAction(nameof(Show),new {IdUsluge, idVozila});
+            }
+        }
     }
 }

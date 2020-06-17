@@ -2,19 +2,20 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<AppUser> UserMgr;
         private SignInManager<AppUser> SignInMgr;
+        private UserManager<AppUser> UserMgr;
         
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
         {
-            UserMgr = userManager;
             SignInMgr = signInManager;
+            UserMgr = userManager;
         }
 
         [HttpGet]
@@ -39,8 +40,8 @@ namespace WebApplication.Controllers
                     user.Email = email;
                     user.FirstName = firstname;
                     user.LastName = lastname;
-
                     IdentityResult result = await UserMgr.CreateAsync(user, password);
+                    IdentityResult result2 = await UserMgr.AddToRoleAsync(user, "user");
                     ViewBag.Message = "User created!";
                 }
             }
@@ -49,7 +50,6 @@ namespace WebApplication.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-
             return View();
         }
 

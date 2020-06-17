@@ -7,7 +7,7 @@ namespace WebApplication.Models
     {
         public Vozila()
         {
-            PonudaVozilo = new HashSet<PonudaVozilo>();
+            ZahtjevVozila = new HashSet<ZahtjevVozila>();
         }
 
         public int IdVozila { get; set; }
@@ -20,6 +20,6 @@ namespace WebApplication.Models
         public virtual Modeli IdModelaNavigation { get; set; }
         public virtual Proizvodjaci IdProizvodjacaNavigation { get; set; }
         public virtual Slike IdSlikeNavigation { get; set; }
-        public virtual ICollection<PonudaVozilo> PonudaVozilo { get; set; }
+        public virtual ICollection<ZahtjevVozila> ZahtjevVozila { get; set; }
     }
 }

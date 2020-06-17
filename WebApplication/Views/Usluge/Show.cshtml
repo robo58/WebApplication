@@ -4,16 +4,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
-    <h1 >@Model.NazivUsluge</h1>
-    
-    <div>
-        @foreach (VozilosViewModel v in ViewBag.Vozila)
-        {
-            <div class="justify-content-center">
-                <h2 class="text-center">@v.NazivProizvodjaca @v.Model.Naziv</h2>
-                <img src="@Url.Action("GetImage", "Vozila", new { id = @v.IdSlike })"  class="img-fluid mx-auto d-block" />
-            </div>
-        }
+<form asp-controller="Zahtjev" asp-action="Show" method="get">
+    <div class="container">
+        <h1 >@Model.NazivUsluge</h1>
+        <input type="hidden" name="IdUsluge" value="@Model.IdUsluge"/>
+        <div>
+            @foreach (VozilosViewModel v in ViewBag.Vozila)
+            {
+                <div class="row">
+                    <div class="justify-content-center col-md-10">
+                        <h2 class="text-center">@v.NazivProizvodjaca @v.Model.Naziv</h2>
+                        <img src="@Url.Action("GetImage", "Vozila", new { id = @v.IdSlike })"  class="img-fluid mx-auto d-block"  alt="No img found."/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" name="idVozila" value="@v.IdVozila" class="form-control"/>
+                    </div>
+                </div>
+            }
+        </div>
+        <button type="submit" class="btn btn-primary">Go</button>
     </div>
-</div>
+</form>

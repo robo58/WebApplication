@@ -48,9 +48,6 @@
           <e p="Odjeli.cs" t="Include" />
           <e p="OpremaHelper.cs" t="Include" />
           <e p="PI10Context.cs" t="Include" />
-          <e p="Ponuda.cs" t="Include" />
-          <e p="PonudaVozac.cs" t="Include" />
-          <e p="PonudaVozilo.cs" t="Include" />
           <e p="Proizvodjaci.cs" t="Include" />
           <e p="RoleEdit.cs" t="Include" />
           <e p="RoleModification.cs" t="Include" />
@@ -60,6 +57,8 @@
           <e p="Vozila.cs" t="Include" />
           <e p="VrsteGoriva.cs" t="Include" />
           <e p="Zahtjev.cs" t="Include" />
+          <e p="ZahtjevVozaci.cs" t="Include" />
+          <e p="ZahtjevVozila.cs" t="Include" />
           <e p="Zaposlenici.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -204,6 +203,7 @@
             <e p="ErrorMessageRow.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
             <e p="Row.cshtml" t="Include" />
+            <e p="Show.cshtml" t="Include" />
           </e>
           <e p="Zaposlenici" t="Include">
             <e p="Create.cshtml" t="Include" />

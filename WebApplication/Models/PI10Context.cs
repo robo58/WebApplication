@@ -22,9 +22,6 @@ namespace WebApplication.Models
         public virtual DbSet<Mjenjaci> Mjenjaci { get; set; }
         public virtual DbSet<Modeli> Modeli { get; set; }
         public virtual DbSet<Odjeli> Odjeli { get; set; }
-        public virtual DbSet<Ponuda> Ponuda { get; set; }
-        public virtual DbSet<PonudaVozac> PonudaVozac { get; set; }
-        public virtual DbSet<PonudaVozilo> PonudaVozilo { get; set; }
         public virtual DbSet<Proizvodjaci> Proizvodjaci { get; set; }
         public virtual DbSet<Slike> Slike { get; set; }
         public virtual DbSet<Specifikacije> Specifikacije { get; set; }
@@ -32,6 +29,8 @@ namespace WebApplication.Models
         public virtual DbSet<Vozila> Vozila { get; set; }
         public virtual DbSet<VrsteGoriva> VrsteGoriva { get; set; }
         public virtual DbSet<Zahtjev> Zahtjev { get; set; }
+        public virtual DbSet<ZahtjevVozaci> ZahtjevVozaci { get; set; }
+        public virtual DbSet<ZahtjevVozila> ZahtjevVozila { get; set; }
         public virtual DbSet<Zaposlenici> Zaposlenici { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -159,81 +158,6 @@ namespace WebApplication.Models
                     .HasColumnName("naziv")
                     .HasMaxLength(20)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Ponuda>(entity =>
-            {
-                entity.HasKey(e => e.IdPonude)
-                    .HasName("PK__ponuda__76299DD788D33406");
-
-                entity.ToTable("ponuda");
-
-                entity.Property(e => e.IdPonude)
-                    .HasColumnName("id_ponude")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.DodatniPopustPostotak).HasColumnName("dodatni_popust_postotak");
-
-                entity.Property(e => e.IdZahtjeva).HasColumnName("id_zahtjeva");
-
-                entity.Property(e => e.PopustKolicinaPostotak).HasColumnName("popust_kolicina_postotak");
-
-                entity.HasOne(d => d.IdZahtjevaNavigation)
-                    .WithMany(p => p.Ponuda)
-                    .HasForeignKey(d => d.IdZahtjeva)
-                    .HasConstraintName("FK__ponuda__id_zahtj__4E88ABD4");
-            });
-
-            modelBuilder.Entity<PonudaVozac>(entity =>
-            {
-                entity.HasKey(e => e.IdPv)
-                    .HasName("PK__ponuda_v__0148A34A5E511BA4");
-
-                entity.ToTable("ponuda_vozac");
-
-                entity.Property(e => e.IdPv)
-                    .HasColumnName("id_pv")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.IdPonude).HasColumnName("id_ponude");
-
-                entity.Property(e => e.IdVozaca).HasColumnName("id_vozaca");
-
-                entity.HasOne(d => d.IdPonudeNavigation)
-                    .WithMany(p => p.PonudaVozac)
-                    .HasForeignKey(d => d.IdPonude)
-                    .HasConstraintName("FK__ponuda_vo__id_po__49C3F6B7");
-
-                entity.HasOne(d => d.IdVozacaNavigation)
-                    .WithMany(p => p.PonudaVozac)
-                    .HasForeignKey(d => d.IdVozaca)
-                    .HasConstraintName("FK__ponuda_vo__id_vo__4BAC3F29");
-            });
-
-            modelBuilder.Entity<PonudaVozilo>(entity =>
-            {
-                entity.HasKey(e => e.IdPvozilo)
-                    .HasName("PK__ponuda_v__0B5F9A98A1E05912");
-
-                entity.ToTable("ponuda_vozilo");
-
-                entity.Property(e => e.IdPvozilo)
-                    .HasColumnName("id_pvozilo")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.IdPonude).HasColumnName("id_ponude");
-
-                entity.Property(e => e.IdVozila).HasColumnName("id_vozila");
-
-                entity.HasOne(d => d.IdPonudeNavigation)
-                    .WithMany(p => p.PonudaVozilo)
-                    .HasForeignKey(d => d.IdPonude)
-                    .HasConstraintName("FK__ponuda_vo__id_po__4AB81AF0");
-
-                entity.HasOne(d => d.IdVozilaNavigation)
-                    .WithMany(p => p.PonudaVozilo)
-                    .HasForeignKey(d => d.IdVozila)
-                    .HasConstraintName("FK__ponuda_vo__id_vo__4CA06362");
             });
 
             modelBuilder.Entity<Proizvodjaci>(entity =>
@@ -432,6 +356,53 @@ namespace WebApplication.Models
                     .WithMany(p => p.Zahtjev)
                     .HasForeignKey(d => d.IdUsluge)
                     .HasConstraintName("FK__zahtjev__id_uslu__4F7CD00D");
+            });
+
+            modelBuilder.Entity<ZahtjevVozaci>(entity =>
+            {
+                entity.HasKey(e => new { e.IdZahtjeva, e.IdVozaca })
+                    .HasName("zahtjev_vozaci_pk")
+                    .IsClustered(false);
+
+                entity.ToTable("zahtjev_vozaci");
+
+                entity.Property(e => e.IdZahtjeva).HasColumnName("id_zahtjeva");
+
+                entity.Property(e => e.IdVozaca).HasColumnName("id_vozaca");
+
+                entity.HasOne(d => d.IdVozacaNavigation)
+                    .WithMany(p => p.ZahtjevVozaci)
+                    .HasForeignKey(d => d.IdVozaca)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("zahtjev_vozaci_zaposlenici_id_zaposlenika_fk");
+
+                entity.HasOne(d => d.IdZahtjevaNavigation)
+                    .WithMany(p => p.ZahtjevVozaci)
+                    .HasForeignKey(d => d.IdZahtjeva)
+                    .HasConstraintName("zahtjev_vozaci_zahtjev_id_zahtjeva_fk");
+            });
+
+            modelBuilder.Entity<ZahtjevVozila>(entity =>
+            {
+                entity.HasKey(e => new { e.IdZahtjeva, e.IdVozila })
+                    .HasName("zahtjev_vozila_pk")
+                    .IsClustered(false);
+
+                entity.ToTable("zahtjev_vozila");
+
+                entity.Property(e => e.IdZahtjeva).HasColumnName("id_zahtjeva");
+
+                entity.Property(e => e.IdVozila).HasColumnName("id_vozila");
+
+                entity.HasOne(d => d.IdVozilaNavigation)
+                    .WithMany(p => p.ZahtjevVozila)
+                    .HasForeignKey(d => d.IdVozila)
+                    .HasConstraintName("zahtjev_vozila_vozila_id_vozila_fk");
+
+                entity.HasOne(d => d.IdZahtjevaNavigation)
+                    .WithMany(p => p.ZahtjevVozila)
+                    .HasForeignKey(d => d.IdZahtjeva)
+                    .HasConstraintName("zahtjev_vozila_zahtjev_id_zahtjeva_fk");
             });
 
             modelBuilder.Entity<Zaposlenici>(entity =>
