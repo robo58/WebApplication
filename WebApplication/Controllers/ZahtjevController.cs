@@ -272,7 +272,16 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> Show(int IdUsluge,int[] idVozila)
         {
-            //var vozila = await _ctx.Vozila.Where(d => idVozila.Contains(d.IdVozila)).ToListAsync();
+            var usluga = await _ctx.Usluge.FindAsync(IdUsluge);
+            var kat = usluga.IdKategorije;
+            
+            if (kat != null && kat == 2)
+            {
+                var vozaci = await _ctx.Zaposlenici.AsNoTracking().OrderBy(d=>d.IdOsobe)
+                    .Select(d=>new {ImePrezime = d.IdOsobeNavigation.FirstName + " " +d.IdOsobeNavigation.LastName + "Radni staz: " + d.RadniStaz, d.IdZaposlenika}).ToListAsync();
+                ViewBag.Vozaci = new SelectList(vozaci,nameof(Zaposlenici.IdZaposlenika),"ImePrezime");
+            }
+        
             ViewBag.IdUsluge = IdUsluge;
             ViewBag.IdVozila = idVozila;
             return View();
@@ -289,9 +298,20 @@ namespace WebApplication.Controllers
             }
         }
 
+        public void DodajVozace(int idZahtjeva, int[] idVozaca)
+        {
+            foreach (var id in idVozaca)
+            {
+                ZahtjevVozaci zahtjevVozaci = new ZahtjevVozaci();
+                zahtjevVozaci.IdVozaca = id;
+                zahtjevVozaci.IdZahtjeva = idZahtjeva;
+                _ctx.Add(zahtjevVozaci);
+            }
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateRequest(int IdUsluge,int[] idVozila,ClaimsPrincipal user, DateTime? DatumOd, DateTime? DatumDo)
+        public async Task<IActionResult> CreateRequest(int IdUsluge,int[] idVozila,int[] idVozaca,ClaimsPrincipal user, DateTime? DatumOd, DateTime? DatumDo)
         {
             string username = User.FindFirstValue(ClaimTypes.Name);
             var klijent = await UserMgr.FindByNameAsync(username);
@@ -304,6 +324,7 @@ namespace WebApplication.Controllers
             zahtjev.DatumDo = DatumDo;
             zahtjev.BrojVozila = idVozila.Length;
             DodajVozila(zahtjev.IdZahtjeva,idVozila);
+            DodajVozace(zahtjev.IdZahtjeva,idVozaca);
             try
             {
                 _ctx.Add(zahtjev);

@@ -1,4 +1,7 @@
 ﻿@model Zahtjev
+@{
+    int i = 1;
+}
 
 <form asp-action="CreateRequest" method="post">
     <div asp-validation-summary="All"></div>
@@ -6,6 +9,14 @@
     @foreach (int id in ViewBag.IdVozila)
     {
         <input type="hidden" name="IdVozila" value="@id" />
+        if (ViewBag.Vozaci != null)
+        {
+            <select class="form-control" name="idVozaca" asp-items="ViewBag.Vozaci">
+                <option selected value="" disabled>Odaberite vozaca @i</option>
+            </select>
+            <br/><br/>
+            i++;
+        }
     }
     <input type="hidden" name="user" value="@User" />
     <div class="form-group">
