@@ -11,7 +11,7 @@
     <thead>
     <tr>
         @{
-            string[] nazivi = {"ID Vozila", "Naziv Proizvodjaca", "Naziv modela", "Cijena", "Dostupno"};
+            string[] nazivi = {"ID Vozila", "Naziv Proizvodjaca", "Naziv modela", "Cijena/Dan", "Dostupno"};
             for (int i=1; i<= nazivi.Length; i++)
             {
                 <th><a asp-route-sort="@i"

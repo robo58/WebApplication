@@ -1,0 +1,34 @@
+﻿@model Zahtjev
+@{
+    int i = 1;
+}
+
+<form asp-action="CreateRequest" method="post">
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" name="IdUsluge" value="@ViewBag.IdUsluge" />
+    @foreach (int id in ViewBag.IdVozila)
+    {
+        <input type="hidden" name="IdVozila" value="@id" />
+        if (ViewBag.Vozaci != null)
+        {
+            <select class="form-control" name="idVozaca" asp-items="ViewBag.Vozaci">
+                <option selected value="" disabled>Odaberite vozaca @i</option>
+            </select>
+            <br/><br/>
+            i++;
+        }
+    }
+    <input type="hidden" name="user" value="@User" />
+    <div class="form-group">
+        <label asp-for="DatumOd"></label>
+        <input type="date" name="DatumOd" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumDo"></label>
+        <input type="date" name="DatumDo" class="form-control"/>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Dodaj</button>
+        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+    </div>
+</form>

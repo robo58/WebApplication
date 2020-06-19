@@ -1,0 +1,11 @@
+﻿@using WebApplication.Controllers
+@model WebApplication.ViewModels.ZahtjevViewModel
+
+<tr style="color: #0b486b;">
+    <td class="text-left" style="color: #0b486b;">@Model.IdZahtjeva</td>
+    <td class="text-left" style="color: #0b486b;">@Model.NazivUsluge</td>
+    <td class="text-left" style="color: #0b486b;">@Model.DatumOd</td>
+    <td class="text-left" style="color: #0b486b;">@Model.DatumDo</td>
+    <td class="text-left" style="color: #0b486b;">@Model.BrojVozila</td>
+    <td class="text-left" style="color: #0b486b;"><a class="btn btn-sm btn-info" asp-action="Show" asp-route-id="@Model.IdZahtjeva" asp-controller="Zahtjev">Show</a></td>
+</tr>

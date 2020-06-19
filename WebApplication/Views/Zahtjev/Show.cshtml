@@ -1,34 +1,55 @@
-﻿@model Zahtjev
+﻿@using WebApplication.ViewModels
+@model Zahtjev
+
 @{
-    int i = 1;
+    string imePrezime = ViewBag.Klijent.FirstName + " " + ViewBag.Klijent.LastName;
 }
 
-<form asp-action="CreateRequest" method="post">
-    <div asp-validation-summary="All"></div>
-    <input type="hidden" name="IdUsluge" value="@ViewBag.IdUsluge" />
-    @foreach (int id in ViewBag.IdVozila)
-    {
-        <input type="hidden" name="IdVozila" value="@id" />
-        if (ViewBag.Vozaci != null)
+<div class="container">
+    <h1 class="text-center text-white">Zahtjev</h1>
+    <br/><br/>
+    <div class="row">
+        <div class="col-md-6 text-white font-weight-bold" style="font-size: x-large">
+            <p>
+                Datum od: @Model.DatumOd
+            </p>
+            <p>
+                Datum do: @Model.DatumDo
+            </p>
+        </div>
+        <div class="col-md-6 text-white font-weight-bold" style="font-size: x-large">
+            <p>
+                Klijent: @imePrezime
+            </p>
+            <p>
+                Usluga: @ViewBag.Kat/@ViewBag.Usluga.NazivUsluge
+            </p>
+        </div>
+    </div>
+    <hr style="background-color: white; height: 6px;"/>
+    <div>
+        <h1 class="text-center text-white">Vozila</h1>
+        @foreach (VozilosViewModel v in ViewBag.Vozila)
         {
-            <select class="form-control" name="idVozaca" asp-items="ViewBag.Vozaci">
-                <option selected value="" disabled>Odaberite vozaca @i</option>
-            </select>
-            <br/><br/>
-            i++;
+            <div class="row bg-white rounded box-shadow" style="margin-top: 25px; padding: 10px; color: #0b486b">
+                <div class="justify-content-center col-md-6">
+                    <h2 class="text-center">@v.NazivProizvodjaca @v.Model.Naziv</h2>
+                    <hr style="background-color: #0b486b"/>
+                    <h4 class="text-center">Specifikacije</h4>
+                    <br/>
+                    <h6>Konjske snage: @v.Model.Specifikacija.KonjskeSnage </h6>
+                    <h6>Boja: @v.Model.Specifikacija.NazivBoje</h6>
+                    <h6>Mjenjac: @v.Model.Specifikacija.NazivMjenjaca</h6>
+                    <h6>Dodatna oprema: @v.Model.Specifikacija.NazivDodatneOpreme</h6>
+                    <h6>Gorivo: @v.Model.Specifikacija.NazivVrsteGoriva</h6>
+                    <h6>Velicina tanka: @v.Model.Specifikacija.VelicinaTankaULitrima litara</h6>
+                    <h6>Potrosnja: @v.Model.Specifikacija.Potrosnja litara/100km</h6>
+                    <h6 class="align-self-center">Cijena: @v.Cijena KM/Dan </h6>
+                </div>
+                <div class="col-md-6">
+                    <img src="@Url.Action("GetImage", "Vozila", new {id = v.IdSlike})" class="mx-auto slika" alt="No img found."/>
+                </div>
+            </div>
         }
-    }
-    <input type="hidden" name="user" value="@User" />
-    <div class="form-group">
-        <label asp-for="DatumOd"></label>
-        <input type="date" name="DatumOd" class="form-control"/>
     </div>
-    <div class="form-group">
-        <label asp-for="DatumDo"></label>
-        <input type="date" name="DatumDo" class="form-control"/>
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Dodaj</button>
-        <a asp-action="Index" class="btn btn-secondary">Odustani</a>
-    </div>
-</form>
+</div>

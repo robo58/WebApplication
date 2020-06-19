@@ -3,8 +3,6 @@
     ViewData["Title"] = "Popis zahtjeva";
 }
 
-<a asp-action="Create">Unos Novog zahtjeva</a>
-
 <pager page-info="@Model.PagingInfo" page-title="Unesite zeljenu stranicu" page-action="Index" class="float-right"></pager>
 
 <table class="table table-sm table-striped table-hover" id="tabledrzave">
@@ -27,7 +25,7 @@
     <tbody>
     @foreach (var zahtjev in Model.Zahtjevi)
     {
-        <partial name="Row" model="zahtjev"/>
+        <partial name="Row" model="zahtjev" />
     }
     </tbody>
 </table>

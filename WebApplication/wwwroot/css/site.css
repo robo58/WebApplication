@@ -43,7 +43,7 @@ html {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .25rem .75rem #0b486b;
 }
 
 button.accept-policy {
@@ -100,6 +100,11 @@ main{
 
 .malaslika {
   height: 40px;
+}
+
+.slika {
+  height: 100%;
+  width: 100%;
 }
 
 .bg-custom {

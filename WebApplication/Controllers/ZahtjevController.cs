@@ -104,14 +104,7 @@ namespace WebApplication.Controllers
             };
             return View(modelD);
         }
-        
-        [HttpGet]
-        public IActionResult Create()
-        {
-            PrepareDropDownLists();
-            return View();
-        }
-        
+
         private void PrepareDropDownLists()
         {
             var usluge = _ctx.Usluge.AsNoTracking().OrderBy(d => d.NazivUsluge)
@@ -123,33 +116,6 @@ namespace WebApplication.Controllers
             ViewBag.Klijenti = new SelectList(klijenti, nameof(AppUser.Id), "ImePrezime");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Zahtjev zahtjev)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _ctx.Add(zahtjev);
-                    _ctx.SaveChanges();
-                    TempData[Constants.Message] = $"zahtjev uspjesno dodano.*";
-                    TempData[Constants.ErrorOccurred] = false;
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception e)
-                {
-                    ModelState.AddModelError(string.Empty, e.Message);
-                    PrepareDropDownLists();
-                    return View(zahtjev);
-                }
-            }
-            else
-            {
-                return View(zahtjev);
-            }
-        }
-        
         [HttpGet]
         public IActionResult Edit(int id, int page = 1, int sort = 1, bool ascending = true)
         {
@@ -270,7 +236,51 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Show(int IdUsluge,int[] idVozila)
+        public async Task<IActionResult> Show(int id)
+        {
+            var zahtjev = await _ctx.Zahtjev.FindAsync(id);
+            var id_vozila = await _ctx.ZahtjevVozila.Where(d => d.IdZahtjeva == id).Select(d=>d.IdVozila).ToListAsync();
+            var vozila = await _ctx.Vozila.Where(v => id_vozila.Contains(v.IdVozila))
+                .Select(v => new VozilosViewModel
+                {
+                    IdVozila = v.IdVozila,
+                    Cijena = v.Cijena,
+                    Dostupno = v.Dostupno,
+                    Model = new ModelViewModel
+                    {
+                        IdModela = v.IdModelaNavigation.IdModela,
+                        Naziv = v.IdModelaNavigation.Naziv,
+                        Specifikacija = new SpecifikacijaViewModel
+                        {
+                            IdSpecifikacija = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdSpecifikacija,
+                            KonjskeSnage = v.IdModelaNavigation.IdSpecifikacijaNavigation.KonjskeSnage,
+                            NazivBoje = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdBojeNavigation.Naziv,
+                            NazivDodatneOpreme = v.IdModelaNavigation.IdSpecifikacijaNavigation
+                                .IdDodatneOpremeNavigation.ToString(),
+                            NazivMjenjaca = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdMjenjacaNavigation.Naziv,
+                            NazivVrsteGoriva = v.IdModelaNavigation.IdSpecifikacijaNavigation.IdVrsteGorivaNavigation
+                                .Naziv,
+                            Potrosnja = v.IdModelaNavigation.IdSpecifikacijaNavigation.Potrosnja,
+                            VelicinaTankaULitrima = v.IdModelaNavigation.IdSpecifikacijaNavigation.VelicinaTankaULitrima
+                        }
+                    },
+                    NazivProizvodjaca = v.IdProizvodjacaNavigation.Naziv,
+                    IdSlike = v.IdSlike
+                }).ToListAsync();
+            var klijent = await _ctx.Users.FindAsync(zahtjev.IdKlijenta);
+            var usluga = await _ctx.Usluge.FindAsync(zahtjev.IdUsluge);
+            var kategorija = await _ctx.Usluge.Where(d => d.IdUsluge == zahtjev.IdUsluge)
+                .Select(d => d.IdKategorijeNavigation.Naziv).FirstOrDefaultAsync();
+            
+            ViewBag.Vozila = vozila;
+            ViewBag.Klijent = klijent;
+            ViewBag.Kat = kategorija;
+            ViewBag.Usluga = usluga;
+            return View(zahtjev);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowForm(int IdUsluge,int[] idVozila)
         {
             var usluga = await _ctx.Usluge.FindAsync(IdUsluge);
             var kat = usluga.IdKategorije;
@@ -337,7 +347,7 @@ namespace WebApplication.Controllers
             {
                 ModelState.AddModelError(string.Empty, e.Message);
                 PrepareDropDownLists();
-                return RedirectToAction(nameof(Show),new {IdUsluge, idVozila});
+                return RedirectToAction(nameof(ShowForm),new {IdUsluge, idVozila});
             }
         }
     }
