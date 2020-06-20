@@ -38,7 +38,6 @@ using Newtonsoft.Json.Serialization;
             int pagesize = _appSettings.PageSize;
             var query = _ctx.DodatnaOprema.AsNoTracking();
             int count = query.Count();
-
             var pagingInfo = new PagingInfo
             {
                 CurrentPage = page,

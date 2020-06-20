@@ -15,6 +15,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApplication.Models;
 using WebApplication.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Microsoft.AspNetCore.Http.Extensions;
+using PdfRpt.FluentInterface;
+using PdfRpt.Core.Contracts;
 
 namespace WebApplication.Controllers
 {
@@ -24,12 +29,14 @@ namespace WebApplication.Controllers
         private readonly PI10Context _ctx;
         private readonly AppSettings _appSettings;
         private UserManager<AppUser> UserMgr;
+        private readonly IHostingEnvironment _hostingEnv;
 
-        public ZahtjevController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot, UserManager<AppUser> userManager)
+        public ZahtjevController(IHostingEnvironment hosting,PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot, UserManager<AppUser> userManager)
         {
             _ctx = ctx;
             _appSettings = optionsSnapshot.Value;
             UserMgr = userManager;
+            _hostingEnv = hosting;
         }
         
         public IActionResult Index(int page = 1, int sort = 1, bool ascending = true)
@@ -276,6 +283,7 @@ namespace WebApplication.Controllers
             ViewBag.Klijent = klijent;
             ViewBag.Kat = kategorija;
             ViewBag.Usluga = usluga;
+
             return View(zahtjev);
         }
 
