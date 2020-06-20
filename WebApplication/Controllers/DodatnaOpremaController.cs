@@ -202,7 +202,7 @@ using Newtonsoft.Json.Serialization;
             {
                 return NotFound("Nema poslanih podataka");
             }
-            DodatnaOprema dbOprema = _ctx.DodatnaOprema.Find(oprema.IdDodatneOpreme);
+            DodatnaOprema dbOprema = await _ctx.DodatnaOprema.FindAsync(oprema.IdDodatneOpreme);
             if (dbOprema == null)
             {
                 return NotFound($"Neispravna sifra opreme: {oprema.IdDodatneOpreme}");
@@ -214,7 +214,7 @@ using Newtonsoft.Json.Serialization;
                     dbOprema.Siber = oprema.Siber;
                     dbOprema.Klima = oprema.Klima;
                     dbOprema.KozniSicevi = oprema.KozniSicevi;
-                    _ctx.SaveChanges();
+                    await _ctx.SaveChangesAsync();
                     return StatusCode(302, Url.Action(nameof(Row), new {id = oprema.IdDodatneOpreme}));
                 }
                 catch (Exception e)
