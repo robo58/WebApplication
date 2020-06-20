@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Models
 {
@@ -10,9 +11,17 @@ namespace WebApplication.Models
             ZahtjevVozila = new HashSet<ZahtjevVozila>();
         }
 
+        [Required(ErrorMessage = "Potrebno je unijeti sifru vozila")]
         public int IdVozila { get; set; }
+        
+        [Required(ErrorMessage = "Potrebno je odabrati proizvodjaca")]
         public int? IdProizvodjaca { get; set; }
+        
+        [Required(ErrorMessage = "Potrebno je odabrati model")]
         public int? IdModela { get; set; }
+        
+        [Required(ErrorMessage = "Potrebno je unijeti cijenu vozila")]
+        [Range(0, double.MaxValue, ErrorMessage = "Cijena vozila mora biti pozitivan broj")]
         public int Cijena { get; set; }
         public bool Dostupno { get; set; }
         public int? IdSlike { get; set; }

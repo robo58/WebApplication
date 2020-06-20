@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Models
 {
@@ -10,6 +11,7 @@ namespace WebApplication.Models
             Modeli = new HashSet<Modeli>();
         }
 
+        [Required(ErrorMessage = "Potrebno je unijeti sifru specifikacije")]
         public int IdSpecifikacija { get; set; }
         public int? KonjskeSnage { get; set; }
         public int? IdMjenjaca { get; set; }

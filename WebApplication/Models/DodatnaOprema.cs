@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication.Controllers;
 
 namespace WebApplication.Models
 {
@@ -10,6 +13,9 @@ namespace WebApplication.Models
             Specifikacije = new HashSet<Specifikacije>();
         }
 
+        [Required(ErrorMessage = "Potrebno je unijeti sifru Opreme")]
+        [Remote(action: nameof(DodatnaOpremaController.ProvjeriSifruArtikla), controller: "Artikl", 
+            ErrorMessage = "Oprema s navedenom sifrom vec postoji")]
         public int IdDodatneOpreme { get; set; }
         public bool Siber { get; set; }
         public bool Klima { get; set; }

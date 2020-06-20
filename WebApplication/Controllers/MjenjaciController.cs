@@ -94,7 +94,6 @@ namespace WebApplication.Controllers
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError(string.Empty, e.Message);
                     return View(mjenjac);
                 }
             }

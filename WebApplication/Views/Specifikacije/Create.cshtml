@@ -18,11 +18,12 @@
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="IdBoje"></label>
+        <label>Boja</label>
         <div><span asp-validation-for="IdBoje" class="text-danger"></span></div>
-        <select class="form-control" asp-for="IdBoje" asp-items="ViewBag.Boje">
-            <option selected value="" disabled>Odaberite Boju</option>
-        </select>
+        <input class="form-control" data-autocomplete="boje"
+               data-autocomplete-placeholder-name="nazivboje"
+               value="" />
+        <input type="hidden" asp-for="IdBoje" data-autocomplete-placeholder="nazivboje" />
     </div>
     <div class="form-group">
         <label asp-for="IdDodatneOpreme"></label>
@@ -32,11 +33,12 @@
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="IdVrsteGoriva"></label>
+        <label>Gorivo</label>
         <div><span asp-validation-for="IdVrsteGoriva" class="text-danger"></span></div>
-        <select class="form-control" asp-for="IdVrsteGoriva" asp-items="ViewBag.VrsteGoriva">
-            <option selected value="" disabled>Odaberite vrstu goriva</option>
-        </select>
+        <input class="form-control" data-autocomplete="vrstegoriva"
+               data-autocomplete-placeholder-name="nazivgoriva"
+               value="" />
+        <input type="hidden" asp-for="IdVrsteGoriva" data-autocomplete-placeholder="nazivgoriva" />
     </div>
     <div class="form-group">
         <label asp-for="VelicinaTankaULitrima"></label>
@@ -51,3 +53,13 @@
         <a asp-action="Index" class="btn btn-secondary">Odustani</a>
     </div>
 </form>
+
+@section styles{
+    <link rel="stylesheet" href="~/lib/jquery-ui-npm/jquery-ui.css" />
+}
+
+@section scripts{
+    <script src="~/lib/jquery-ui-npm/jquery-ui.js"></script>
+    <script src="~/js/autocomplete.js"></script>
+
+}
