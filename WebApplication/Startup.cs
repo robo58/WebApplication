@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +28,18 @@ namespace WebApplication
         {
             services.AddIdentity<AppUser, AppRole>(options => { options.User.RequireUniqueEmail = true; })
                 .AddEntityFrameworkStores<PI10Context>().AddRoles<AppRole>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
-
+        
             services.AddDbContext<PI10Context>(options =>
             {
                 options.UseSqlServer("Server=rppp.fer.hr,3000;Database=PI-10;User Id=pi10;Password=M-A-N-G.O;MultipleActiveResultSets=true");
