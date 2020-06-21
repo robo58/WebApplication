@@ -20,18 +20,26 @@ namespace WebApplication.Controllers
     {
         private readonly PI10Context _ctx;
         private readonly AppSettings _appSettings;
+        private ILogger _logger;
 
-        public UslugeController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot)
+        public UslugeController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot,ILogger logger)
         {
             _ctx = ctx;
             _appSettings = optionsSnapshot.Value;
+            _logger = logger;
         }
-        
+
+        [Authorize(Roles = "admin")]
         public IActionResult Index(int page = 1, int sort = 1, bool ascending = true)
         {
             int pagesize = _appSettings.PageSize;
             var query = _ctx.Usluge.AsNoTracking();
             int count = query.Count();
+
+            if (count < 1)
+            {
+                return RedirectToAction(nameof(Create));
+            }
             
             var pagingInfo = new PagingInfo
             {
@@ -84,7 +92,8 @@ namespace WebApplication.Controllers
             };
             return View(modelD);
         }
-        
+
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -100,6 +109,7 @@ namespace WebApplication.Controllers
             ViewBag.Kategorije = new SelectList(kat, nameof(Kategorije.IdKategorije), nameof(Kategorije.Naziv));
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Usluge usluga)
@@ -127,6 +137,7 @@ namespace WebApplication.Controllers
             }
         }
         
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int id, int page = 1, int sort = 1, bool ascending = true)
         {
@@ -148,6 +159,7 @@ namespace WebApplication.Controllers
             }
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Usluge usluga, int page = 1, int sort = 1, bool ascending = true)
@@ -208,7 +220,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, int page = 1, int sort = 1, bool ascending = true)

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebApplication.Models;
 using WebApplication.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http.Extensions;
 using PdfRpt.FluentInterface;
@@ -29,9 +29,9 @@ namespace WebApplication.Controllers
         private readonly PI10Context _ctx;
         private readonly AppSettings _appSettings;
         private UserManager<AppUser> UserMgr;
-        private readonly IHostingEnvironment _hostingEnv;
+        private readonly IWebHostEnvironment _hostingEnv;
 
-        public ZahtjevController(IHostingEnvironment hosting,PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot, UserManager<AppUser> userManager)
+        public ZahtjevController(IWebHostEnvironment hosting,PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot, UserManager<AppUser> userManager)
         {
             _ctx = ctx;
             _appSettings = optionsSnapshot.Value;
@@ -39,6 +39,7 @@ namespace WebApplication.Controllers
             _hostingEnv = hosting;
         }
         
+        [Authorize(Roles = "admin")]
         public IActionResult Index(int page = 1, int sort = 1, bool ascending = true)
         {
             int pagesize = _appSettings.PageSize;
@@ -123,6 +124,7 @@ namespace WebApplication.Controllers
             ViewBag.Klijenti = new SelectList(klijenti, nameof(AppUser.Id), "ImePrezime");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int id, int page = 1, int sort = 1, bool ascending = true)
         {
@@ -146,6 +148,7 @@ namespace WebApplication.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(Zahtjev zahtjev, int page = 1, int sort = 1, bool ascending = true)
         {
             if (zahtjev == null)
@@ -210,6 +213,7 @@ namespace WebApplication.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id, int page = 1, int sort = 1, bool ascending = true)
         {
             var zahtjev = await _ctx.Zahtjev.FindAsync(id);
@@ -333,16 +337,20 @@ namespace WebApplication.Controllers
         {
             string username = User.FindFirstValue(ClaimTypes.Name);
             var klijent = await UserMgr.FindByNameAsync(username);
+            var idz = await _ctx.Zahtjev.OrderBy(d=>d.IdZahtjeva).LastAsync();
             
             Zahtjev zahtjev = new Zahtjev();
-            zahtjev.IdZahtjeva = await _ctx.Zahtjev.CountAsync() + 1;
+            zahtjev.IdZahtjeva = idz.IdZahtjeva + 1;
             zahtjev.IdUsluge = IdUsluge;
             zahtjev.IdKlijenta = klijent.Id;
             zahtjev.DatumOd = DatumOd;
             zahtjev.DatumDo = DatumDo;
             zahtjev.BrojVozila = idVozila.Length;
             DodajVozila(zahtjev.IdZahtjeva,idVozila);
-            DodajVozace(zahtjev.IdZahtjeva,idVozaca);
+            if (idVozaca.Count() > 0)
+            {
+                DodajVozace(zahtjev.IdZahtjeva,idVozaca);
+            }
             try
             {
                 _ctx.Add(zahtjev);

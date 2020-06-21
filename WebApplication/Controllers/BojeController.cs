@@ -11,7 +11,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,zaposlenik")]
     public class BojeController : Controller
     {
         private readonly PI10Context _ctx;

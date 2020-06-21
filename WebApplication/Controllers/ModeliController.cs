@@ -16,7 +16,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,zaposlenik")]
     public class ModeliController : Controller
     {
         private readonly PI10Context _ctx;

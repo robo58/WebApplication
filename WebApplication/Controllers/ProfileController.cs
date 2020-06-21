@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -10,6 +11,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private SignInManager<AppUser> SignInMgr;
@@ -24,10 +26,18 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Show(int id)
+        public async Task<IActionResult> Show(int? id,string name)
         {
-            var user = await _ctx.Users.FindAsync(id);
-            var zahtjevi = await _ctx.Zahtjev.Where(d => d.IdKlijenta == id).Select(d => new ZahtjevViewModel
+            var user = new AppUser();
+            if (name != null)
+            {
+                user = await UserMgr.FindByNameAsync(name);
+            }
+            else
+            {
+                user = await _ctx.Users.FindAsync(id);  
+            }
+            var zahtjevi = await _ctx.Zahtjev.Where(d => d.IdKlijenta == user.Id).Select(d => new ZahtjevViewModel
             {
                 IdZahtjeva = d.IdZahtjeva,
                 BrojVozila = d.BrojVozila,

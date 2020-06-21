@@ -3,22 +3,39 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
-    <h1 >Pronađimo savršen auto za vas</h1>
-    <br/><br/>
-    <div>
-        <form asp-controller="Kategorije" asp-action="Show" method="get">
-            <select name="id" asp-items="ViewBag.Kategorije" class="form-control">
-                <option value="" disabled selected class="justify-content-center">Odaberi kategoriju</option>
-                @foreach (var kat in Model)
-                {
-                    <option class="justify-content-center" value="@kat.IdKategorije">@kat.Naziv</option>
-                }
-            </select>
-            <br/>
-            <button type="submit" class="btn btn-primary btn-block">Go</button>
-        </form>
-    </div>
+<div class="container mx-auto">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1 class="text-center">Dobrodosli @User.Identity.Name, Pronađimo savršen auto za vas</h1>
+            <br/><br/>
+            <div class="align-self-center inner cover">
+                <form asp-controller="Kategorije" asp-action="Show" method="get">
+                    <select name="id" asp-items="ViewBag.Kategorije" class="form-control">
+                        <option value="" disabled selected class="justify-content-center">Odaberi kategoriju</option>
+                        @foreach (var kat in Model)
+                        {
+                                <option class="justify-content-center" value="@kat.IdKategorije">@kat.Naziv</option>
+                        }
+                    </select>
+                    <br/>
+                    <button type="submit" class="btn btn-primary btn-block">Go</button>
+                </form>
+            </div>
+        }else
+        {
+        <div class="text-center inner cover">
+            <h1 class="cover-heading">Dobro došli na nas servis za iznajmljivanje i prevoz</h1>
+            <p class="lead">
+                Nudimo vam mogucnost iznajmljivanja jednoga ili vise auta uz povoljne cijene i placanje po danu.
+                Takoder nudimo mogucnost prevoza, u vise kategorija vozila sa izborom vise auta i nasim iskusnim vozacima.
+            </p>
+            <p class="lead">Da bi poceli koristiti nase usluge molimo da se ulogirate ili registrirate</p>
+            <p class="lead">
+                <a asp-action="Login" asp-controller="Account" class="btn btn-lg btn-primary">Login</a>
+                <a asp-action="Register" asp-controller="Account" class="btn btn-lg btn-secondary">Register</a>
+            </p>
+        </div>
+        }
 </div>
 
 	

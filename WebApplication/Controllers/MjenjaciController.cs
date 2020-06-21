@@ -11,7 +11,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,zaposlenik")]
     public class MjenjaciController : Controller
     {
         private readonly PI10Context _ctx;
@@ -94,6 +94,7 @@ namespace WebApplication.Controllers
                 }
                 catch (Exception e)
                 {
+                    TempData[Constants.ErrorOccurred] = $"Greska: {e.Message + e.StackTrace}";
                     return View(mjenjac);
                 }
             }

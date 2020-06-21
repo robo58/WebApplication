@@ -62,7 +62,10 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Logout">@User.Identity.Name, Logout</a>
+                        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Profile" ? "active" : "")" asp-controller="Profile" asp-action="Show" asp-route-name="@User.Identity.Name">@User.Identity.Name</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger @(ViewBag.Controller == "Account" ? "active" : "")" asp-controller="Account" asp-action="Logout">Logout</a>
                     </li>
                 }
                 else

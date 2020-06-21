@@ -26,6 +26,7 @@ namespace WebApplication.Controllers
             _appSettings = optionsSnapshot.Value;
         }
         
+        [Authorize(Roles = "admin")]
         public IActionResult Index(int page = 1, int sort = 1, bool ascending = true)
         {
             int pagesize = _appSettings.PageSize;
@@ -75,12 +76,14 @@ namespace WebApplication.Controllers
             return View(modelD);
         }
         
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Kategorije kategorija)
@@ -107,6 +110,7 @@ namespace WebApplication.Controllers
             }
         }
         
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Edit(int id, int page = 1, int sort = 1, bool ascending = true)
         {
@@ -127,6 +131,7 @@ namespace WebApplication.Controllers
             }
         }
         
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, int page = 1, int sort = 1, bool ascending = true)
@@ -173,7 +178,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, int page = 1, int sort = 1, bool ascending = true)

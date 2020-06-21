@@ -42,7 +42,7 @@ namespace WebApplication
         
             services.AddDbContext<PI10Context>(options =>
             {
-                options.UseSqlServer("Server=rppp.fer.hr,3000;Database=PI-10;User Id=pi10;Password=M-A-N-G.O;MultipleActiveResultSets=true");
+                options.UseSqlServer(Configuration.GetConnectionString("PI10"));
             });
 
             var appSection = Configuration.GetSection("AppSettings");
