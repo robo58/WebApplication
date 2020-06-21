@@ -15,17 +15,18 @@
     <e p="C:\Users\rober\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_WebApplication.-2144230293.00" t="ExcludeRecursive" />
     <e p="C:\Users\rober\RiderProjects\WebApplication" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
-      <e p="TestCarService" t="IncludeRecursive">
+      <e p="Tests" t="IncludeRecursive">
+        <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="TestCarService.AssemblyInfo.cs" t="Include" />
+              <e p="WebApplication.tests.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="TestCarService.csproj" t="IncludeRecursive" />
-        <e p="UnitTest1.cs" t="Include" />
+        <e p="UslugeControllerTests.cs" t="Include" />
+        <e p="WebApplication.tests.csproj" t="IncludeRecursive" />
       </e>
       <e p="WebApplication" t="IncludeRecursive">
         <e p="AppSettings.cs" t="Include" />
@@ -55,6 +56,7 @@
           <e p="OdjeliController.cs" t="Include" />
           <e p="ProfileController.cs" t="Include" />
           <e p="ProizvodjaciController.cs" t="Include" />
+          <e p="ReportController.cs" t="Include" />
           <e p="RoleController.cs" t="Include" />
           <e p="SpecifikacijeController.cs" t="Include" />
           <e p="UslugeController.cs" t="Include" />
@@ -106,6 +108,55 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="QtBinariesLinux" t="Include">
+          <e p="imageformats" t="Include">
+            <e p="libqdds.so" t="Include" />
+            <e p="libqgif.so" t="Include" />
+            <e p="libqicns.so" t="Include" />
+            <e p="libqico.so" t="Include" />
+            <e p="libqjp2.so" t="Include" />
+            <e p="libqjpeg.so" t="Include" />
+            <e p="libqmng.so" t="Include" />
+            <e p="libqsvg.so" t="Include" />
+            <e p="libqtga.so" t="Include" />
+            <e p="libqtiff.so" t="Include" />
+            <e p="libqwbmp.so" t="Include" />
+            <e p="libqwebp.so" t="Include" />
+          </e>
+          <e p="libGL.so.1" t="Include" />
+          <e p="libicudata.so.55" t="Include" />
+          <e p="libicui18n.so.55" t="Include" />
+          <e p="libicuuc.so.55" t="Include" />
+          <e p="libjpeg.so.8" t="Include" />
+          <e p="libpng12.so.0" t="Include" />
+          <e p="libQt5Core.so.5" t="Include" />
+          <e p="libQt5DBus.so.5" t="Include" />
+          <e p="libQt5Gui.so.5" t="Include" />
+          <e p="libQt5Multimedia.so.5" t="Include" />
+          <e p="libQt5MultimediaWidgets.so.5" t="Include" />
+          <e p="libQt5Network.so.5" t="Include" />
+          <e p="libQt5OpenGL.so.5" t="Include" />
+          <e p="libQt5Positioning.so.5" t="Include" />
+          <e p="libQt5PrintSupport.so.5" t="Include" />
+          <e p="libQt5Qml.so.5" t="Include" />
+          <e p="libQt5Quick.so.5" t="Include" />
+          <e p="libQt5Sensors.so.5" t="Include" />
+          <e p="libQt5Sql.so.5" t="Include" />
+          <e p="libQt5Svg.so.5" t="Include" />
+          <e p="libQt5WebChannel.so.5" t="Include" />
+          <e p="libQt5WebKit.so.5" t="Include" />
+          <e p="libQt5WebKitWidgets.so.5" t="Include" />
+          <e p="libQt5Widgets.so.5" t="Include" />
+          <e p="libQt5XcbQpa.so.5" t="Include" />
+          <e p="libsqlite3.so.0" t="Include" />
+          <e p="libstdc++.so.6" t="Include" />
+          <e p="platforms" t="Include">
+            <e p="libqminimal.so" t="Include" />
+            <e p="libqoffscreen.so" t="Include" />
+            <e p="libqxcb.so" t="Include" />
+          </e>
+          <e p="Syncfusion.WebKitWrapper" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="TagHelpers" t="Include">
@@ -193,6 +244,9 @@
             <e p="Edit.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
           </e>
+          <e p="Report" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Role" t="Include">
             <e p="Create.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
@@ -258,6 +312,14 @@
             <e p="site.css" t="Include" />
           </e>
           <e p="favicon.ico" t="Include" />
+          <e p="fonts" t="Include">
+            <e p="tahoma.ttf" t="Include" />
+            <e p="tahomabd.ttf" t="Include" />
+            <e p="verdana.ttf" t="Include" />
+            <e p="verdanab.ttf" t="Include" />
+            <e p="verdanai.ttf" t="Include" />
+            <e p="verdanaz.ttf" t="Include" />
+          </e>
           <e p="js" t="Include">
             <e p="autocomplete.js" t="Include" />
             <e p="gotopage.js" t="Include" />

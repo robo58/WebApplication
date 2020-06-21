@@ -33,14 +33,6 @@ namespace WebApplication.Models
         public virtual DbSet<ZahtjevVozila> ZahtjevVozila { get; set; }
         public virtual DbSet<Zaposlenici> Zaposlenici { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=rppp.fer.hr,3000;Database=PI-10;User Id=pi10;Password=M-A-N-G.O;MultipleActiveResultSets=true");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -1,18 +1,17 @@
-using WebApplication.Models;
-using WebApplication.ViewModels;
 using System;
-using Xunit;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using WebApplication.Controllers;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using WebApplication;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
+using WebApplication.Controllers;
+using WebApplication.Models;
+using WebApplication.ViewModels;
+using Xunit;
 
-namespace Tests
+namespace WebApplication.tests
 {
     public class UslugeControllerTests
   {   

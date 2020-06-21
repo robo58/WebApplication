@@ -42,7 +42,8 @@ namespace WebApplication
         
             services.AddDbContext<PI10Context>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("PI10"));
+                options.UseSqlServer(Configuration.GetConnectionString("PI10")
+                    .Replace("sifra", Configuration["PI10SqlPassword"]));
             });
 
             var appSection = Configuration.GetSection("AppSettings");

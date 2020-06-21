@@ -20,13 +20,11 @@ namespace WebApplication.Controllers
     {
         private readonly PI10Context _ctx;
         private readonly AppSettings _appSettings;
-        private ILogger _logger;
 
-        public UslugeController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot,ILogger logger)
+        public UslugeController(PI10Context ctx, IOptionsSnapshot<AppSettings> optionsSnapshot)
         {
             _ctx = ctx;
             _appSettings = optionsSnapshot.Value;
-            _logger = logger;
         }
 
         [Authorize(Roles = "admin")]
