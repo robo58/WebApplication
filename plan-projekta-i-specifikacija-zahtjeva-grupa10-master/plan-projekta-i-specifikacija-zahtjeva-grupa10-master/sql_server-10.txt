@@ -1,0 +1,4 @@
+SQL Server: rppp.fer.hr,3000
+Database: PI-10
+login: p10
+pass: M-A-N-G.O
